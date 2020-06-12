@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC - KR">
+<meta charset="EUC-KR">
 <title>데이터베이스를 활용한 수강신청 시스템입니다.</title>
 <style tyle="text/css">
 html,
@@ -31,7 +31,7 @@ display: inline-block;
 <body>
 
 
-	<%@include file="top.jsp"%>
+	<%@include file="top.jsp"%><br>
 
 	<div class="container">
 		<div class="row">

@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC - KR">
+<meta charset="EUC-KR">
 <title>데이터베이스를 활용한 수강신청 시스템입니다.</title>
 </head>
 <body>
@@ -31,13 +31,13 @@
 					</tr>
 				</thead>
 				<tbody>
-		
+
 				</tbody>
 			</table>
 			</div>
-			
+
 			<br><br><br>
-			
+
 			<div class="row" style="overflow:auto;">
 				<h2>과뫅별 성적</h2>
 				<table bgcolor="#A0AFFF" cellpadding="5" width="90%"  align="center" cellspacing="1" id="table_list">
@@ -54,7 +54,7 @@
 						</tr>
 					</thead>
 					<tbody>
-			
+
 					</tbody>
 				</table>
 			</div>
@@ -62,4 +62,4 @@
 
 
 </body>
-</html>
+</html> 
