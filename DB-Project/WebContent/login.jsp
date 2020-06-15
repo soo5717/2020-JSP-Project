@@ -19,7 +19,6 @@ div.loginBox{
 </style>
 </head>
 <body>
-
 	 
 	<div class="loginBox">
 	 로그인
@@ -30,7 +29,6 @@ div.loginBox{
 	<div align="right"><input type="button" value="비밀번호 수정" style="background-color:transparent;  border:0px transparent solid;"></div>
 	</form>
 	</div>
-
 
 </body>
 </html>
