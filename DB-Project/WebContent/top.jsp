@@ -1,33 +1,33 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <% 
 	String session_id = (String) session.getAttribute("user"); 
 	String log, up; 
 	if (session_id == null){ 
-		log = "<a href=login.jsp>·Î±×ÀÎ</a>";
+		log = "<a href=login.jsp>ë¡œê·¸ì¸</a>";
 		up = null;
 	}
 	else{
-		log = "<a href=logout.jsp>·Î±×¾Æ¿ô</a>"; 
-		up = "<a href=update.jsp>»ç¿ëÀÚ Á¤º¸ ¼öÁ¤</a>";
+		log = "<a href=logout.jsp>ë¡œê·¸ì•„ì›ƒ</a>"; 
+		up = "<a href=update.jsp>ì‚¬ìš©ìž ì •ë³´ ìˆ˜ì •</a>";
 	}
 %> 
 
-<!-- CSS ½ºÅ¸ÀÏ -->
+<!-- CSS ìŠ¤íƒ€ì¼ -->
 <style type = "text/css">
 	a{
 		font-family: sans-serif; 
 	}
 </style>
 
-<!-- »ó´Ü ¸Þ´º -->
+<!-- ìƒë‹¨ ë©”ë‰´ -->
 <table width= "100%" align="center" bgcolor ="#FFFF99" border> 
 	<tr> 
-		<td align= "center" width="240px"><b><a href ="main.jsp">¼÷¸í¿©ÀÚ´ëÇÐ±³ ¼ö°­½ÅÃ»</b></td> 
-		<td align= "center"><b><a href ="insert.jsp"> ¼ö°­½ÅÃ»</b></td> 
-		<td align= "center"><b><a href ="delete.jsp"> ¼ö°­Ãë¼Ò</b></td> 
-		<td align= "center"><b><a href ="lookup.jsp"> ¼ö°­Á¶È¸</b></td> 
-		<td align= "center"><b><a href ="timatable.jsp">½Ã°£Ç¥</b></td>
+		<td align= "center" width="240px"><b><a href ="main.jsp">ìˆ™ëª…ì—¬ìžëŒ€í•™êµ ìˆ˜ê°•ì‹ ì²­</b></td> 
+		<td align= "center"><b><a href ="insert.jsp"> ìˆ˜ê°•ì‹ ì²­</b></td> 
+		<td align= "center"><b><a href ="delete.jsp"> ìˆ˜ê°•ì·¨ì†Œ</b></td> 
+		<td align= "center"><b><a href ="lookup.jsp"> ìˆ˜ê°•ì¡°íšŒ</b></td> 
+		<td align= "center"><b><a href ="timatable.jsp">ì‹œê°„í‘œ</b></td>
 		<% if(up != null){ %>
 			<td align= "center"><b><%=up%></b></td>
 		<%} %>

@@ -1,7 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
     
-<!-- CSS ½ºÅ¸ÀÏ -->
+<!-- CSS ìŠ¤íƒ€ì¼ -->
 <style type = "text/css">
     	.bottom{
 		position:fixed;
@@ -13,15 +13,15 @@
 	}
 </style>
 
-<!-- ¼ö°­È®Á¤³»¿ª -->
+<!-- ìˆ˜ê°•í™•ì •ë‚´ì—­ -->
 <% int remainCredit = 0, enrollCredit = 0, maxCredit = 0; %>
 <div class="bottom">
 	<table width= "100%" align="center" bgcolor ="#FFFF99" border> 
 		<tr> 
-			<td width="55%">¼ö°­ È®Á¤ ³»¿ª</td> 
-			<td width="15%">ÀÜ¿©ÇÐÁ¡: <%=remainCredit%></td> 
-			<td width="15%">½ÅÃ»ÇÐÁ¡: <%=enrollCredit%></td> 
-			<td width="15%">ÃÖ´ë ¼ö°­ ÇÐÁ¡: <%=maxCredit%></td>
+			<td width="55%">ìˆ˜ê°• í™•ì • ë‚´ì—­</td> 
+			<td width="15%">ìž”ì—¬í•™ì : <%=remainCredit%></td> 
+			<td width="15%">ì‹ ì²­í•™ì : <%=enrollCredit%></td> 
+			<td width="15%">ìµœëŒ€ ìˆ˜ê°• í•™ì : <%=maxCredit%></td>
 		</tr> 
 	</table>
 </div>

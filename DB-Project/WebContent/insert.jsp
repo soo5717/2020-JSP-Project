@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>¼ö°­½ÅÃ»</title>
-<!-- CSS ½ºÅ¸ÀÏ -->
+<title>ìˆ˜ê°•ì‹ ì²­</title>
+<!-- CSS ìŠ¤íƒ€ì¼ -->
 <style type = "text/css">
 	div{
 		font-family: sans-serif; 
@@ -15,18 +15,18 @@
 </head>
 <body>
 
-<!-- »ó´Ü ¸Þ´º -->
+<!-- ìƒë‹¨ ë©”ë‰´ -->
 <%@include file= "top.jsp"%> <br>
 
-<!-- Ä«Å×°í¸® -->
+<!-- ì¹´í…Œê³ ë¦¬ -->
 <%@include file= "category.jsp"%> <br>
 
-<!-- ¼ö°­½ÅÃ» ¸ñ·Ï -->
+<!-- ìˆ˜ê°•ì‹ ì²­ ëª©ë¡ -->
 <div class="row" style="overflow:auto;">
 	<table bgcolor="#A0AFFF" cellpadding="5" width="90%"  align="center" cellspacing="1" id="table_list">
 		<thead>
 			<%
-				String list_item[]={"°ú¸ñ¸í","°ú¸ñÄÚµå","ºÐ¹Ý","ÁÖ°üÇÐ°ú","±³°ú±¸ºÐ", "°­ÀÇ½Ã°£","ÀÌ¼öÇÐÁ¡","Á¤¿ø","½ÅÃ»","¿©¼®","´ã´ç±³¼ö", "½ÅÃ»"};
+				String list_item[]={"ê³¼ëª©ëª…","ê³¼ëª©ì½”ë“œ","ë¶„ë°˜","ì£¼ê´€í•™ê³¼","êµê³¼êµ¬ë¶„", "ê°•ì˜ì‹œê°„","ì´ìˆ˜í•™ì ","ì •ì›","ì‹ ì²­","ì—¬ì„","ë‹´ë‹¹êµìˆ˜", "ì‹ ì²­"};
 			%>
 			<tr bgcolor="#ffff8e">
 				<%
@@ -42,7 +42,7 @@
 	</table>
 </div>
 
-<!-- ¼ö°­È®Á¤³»¿ª -->
+<!-- ìˆ˜ê°•í™•ì •ë‚´ì—­ -->
 <%@include file= "bottom.jsp"%>
 
 </body>

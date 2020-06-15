@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ page import=" java.sql .*" %>
 <% 
 	String userID=request.getParameter("userID");
@@ -21,7 +21,6 @@
 	}catch(Exception e){
 		System.out.println("DB연결오류");
 	}
-
 	mySQL="select s_id from students where s_id='" + userID + "' and s_pwd='" + userPassword + "'";
 	rs = stmt.executeQuery(mySQL);
 	System.out.println(mySQL);
@@ -38,7 +37,6 @@
 		response.sendRedirect("login.jsp");
 		System.out.println("로그인 실패");
 	}
-
 	stmt.close(); 
 	myConn.close(); 
 %>

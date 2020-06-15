@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ page import=" java.sql .*" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>비밀번호 수정</title>
 </head>
 <body>
@@ -29,7 +29,6 @@
 	}catch(Exception e){
 		System.out.println("DB연결오류");
 	}
-
 	mySQL="update students set student_pw = '"+userPassword+"'where student_id='" + userID + "' and student_pw='" + userOldPassword + "'";
 	try{
 	rs = stmt.executeUpdate(mySQL);
