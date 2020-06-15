@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<%@page import=" java.sql .*"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>µ¥ÀÌÅÍº£ÀÌ½º¸¦ È°¿ëÇÑ ¼ö°­½ÅÃ» ½Ã½ºÅÛÀÔ´Ï´Ù.</title>
+<meta charset="EUC - KR">
+<title>ë°ì´í„°ë² ì´ìŠ¤ë¥¼ í™œìš©í•œ ìˆ˜ê°•ì‹ ì²­ ì‹œìŠ¤í…œì…ë‹ˆë‹¤.</title>
+<!-- CSS ìŠ¤íƒ€ì¼-->
 <style tyle="text/css">
 html,
 body {
@@ -29,112 +31,197 @@ display: inline-block;
 </style>
 </head>
 <body>
+<!-- ìƒë‹¨ ë©”ë‰´-->
+	<%@include file="top.jsp"%>
+	
+	<% if(session_id == null) response.sendRedirect("login.jsp"); %>
+	
+	<%
+	Connection conn = null;
+	PreparedStatement pstmt = null;
+	CallableStatement cstmt1 = null;
+	CallableStatement cstmt2 = null;
+	ResultSet rs = null;
+	String mySql ="";
+	String dbdriver = "oracle.jdbc.driver.OracleDriver";
+	String dburl = "jdbc:oracle:thin:@localhost:1521:orcl";
+	String user = "db1713749";
+	String passwd = "oracle"; 
+	
+	//String userID = request.getParameter("userID");
+	//String userPassword = request.getParameter("userPassword");
+	%>
 
-
-	<%@include file="top.jsp"%><br>
-
-	<div class="container">
-		<div class="row">
-			<table width="90%" border = "1"  align="center" height="100%">
-				<thead>
-					<tr style="background-color: #ffff8e; text-align: center;">ÇĞÀû Á¤º¸</tr>
-				</thead>
-				<br>
-				<tbody>
-					 <tr>
-						 <td> ÇĞ¹ø </td>
-						 <td id="s_name">333</td>
-						 <td>¾Æ¸§</td>
-						 <td>333</td>
-						  <td>¼Ò¼Ó</td>
-						 <td>333</td>
-					 </tr> 
+<!-- í•™ì  ì •ë³´-->
+<div class="container">
+	<div class="row">
+		<table width="90%" border = "1"  align="center" height="100%">
+			<thead>
+				<tr style="background-color: #ffff8e; text-align: center;">í•™ì  ì •ë³´</tr>
+			</thead><br>
+			<tbody>
+			<%		
+			try {
+				Class.forName(dbdriver); 	
+				conn = DriverManager.getConnection(dburl, user, passwd);
+				mySql = "select student_id,student_name,department_name,student_semester,student_credit from STUDENTS s, DEPARTMENTS d where s.student_id = ? AND d.department_id = s.department_id ";
+				pstmt =  conn.prepareStatement(mySql);
+				
+				rs = pstmt.executeQuery();
+				pstmt.setInt(1, Integer.parseInt(session_id));
+				if(rs.next()){
+					int studentId = rs.getInt("student_id");
+					String studentName = rs.getString("student_name");
+					String studentDepName = rs.getString("department_name");
+					int studentSemester = rs.getInt("student_semester");
+					int studentGrade = studentSemester/2 ;
+					int studentCredit = rs.getInt("student_credit");
+				%>	
+					<tr>
+				 	<td> í•™ë²ˆ </td><td><%=studentId%></td>
+				 	<td>ì•„ë¦„</td><td><%=studentName%></td>
+					<td>ì†Œì†</td><td><%=studentDepName%></td>
+					</tr> 
 				 	<tr>
-				 		 <td> ÇĞ³â </td>
-						 <td id="s_name">333></td>
-						 <td>ÇĞ±â</td>
-						 <td>333</td>
-						  <td>¼ö°­°¡´ÉÇĞÁ¡</td>
-						 <td>333</td>
+				 	<td> í•™ë…„ </td><td><%=studentGrade%></td>
+					<td>í•™ê¸°</td><td><%=studentSemester%></td>
+					<td>ìˆ˜ê°•ê°€ëŠ¥í•™ì </td><td><%=studentCredit%></td>
 				 	</tr> 
+				<%}%>
 	
-	
-				</tbody>
-			</table>	
-		</div>
-		
-		<br><br><br>
-		
-		<div class="row">
-			<table width="90%" border = "1"  align="center" height="100%">
-				<thead>
-					<tr style="background-color: #ffff8e; text-align: center;">ÇĞ±âº° ¼ö°­  Á¶È¸</tr>
-				</thead>
-				<br>
-				<tbody>
-					 <tr>
-						 <td> ÇĞ³âµµ </td>
-						 <td>
-						 	<form>
-							  <select name="year" >
-							    <option value="none">=== ¼±ÅÃ ===</option>
-							    <option value="korean">2020</option>
-							    <option value="english">2019</option>
-							    <option value="chinese">2018</option>
-							    <option value="spanish">2017</option>
-							  </select>
-							</form>
-						</td>
-						<td> ÇĞ±â </td>
-						 <td>
-						 	<form>
-							  <select name="semester" >
-							    <option value="none">=== ¼±ÅÃ ===</option>
-							    <option value="korean">1ÇĞ±â</option>
-							    <option value="english">2ÇĞ±â</option>
-							  </select>
-							</form>
-						</td>
-					 </tr> 
-				</tbody>
-			</table>	
-			</div>
 			
-			<br><br><br>
+			</tbody>
+		</table>	
+	</div><br><br><br>
+		
+<!-- í•™ê¸°ë³„ ìˆ˜ê°• ì¡°íšŒ-->
+	<div class="row">
+		<table width="90%" border = "1"  align="center" height="100%">
+			<thead>
+				<tr style="background-color: #ffff8e; text-align: center;">í•™ê¸°ë³„ ìˆ˜ê°•  ì¡°íšŒ</tr>
+			</thead>
+			<br>
+			<tbody>
+				<tr>
+				<td> í•™ë…„ë„ </td>
+				<td><form>
+					<select name="selectedYear" >
+					<option value="none">=== ì„ íƒ ===</option>
+					<option value="korean">2020</option>
+					<option value="english">2019</option>
+					<option value="chinese">2018</option>
+					<option value="spanish">2017</option>
+					</select></form>
+				</td>
+				<td> í•™ê¸° </td>
+				<td><form>
+					<select name="selectedSemester" >
+					<option value="none">=== ì„ íƒ ===</option>
+					<option value="korean">1í•™ê¸°</option>
+					<option value="english">2í•™ê¸°</option>
+					</select></form>
+				</td>
+				</tr> 
+			</tbody>
+		</table>	
+	</div><br><br><br>
 			
-			<div class="row" style="overflow:auto;">
-			<table bgcolor="#A0AFFF" cellpadding="5" width="90%"  align="center" cellspacing="1" id="table_list">
-				<thead>
-					<%
-						String list_item[]={"°ú¸ñ¸í","°ú¸ñÄÚµå","ºĞ¹İ","±³°ú±¸ºĞ","°­ÀÇ½Ã°£","ÀÌ¼ö´Ü°è","Á¤¿ø","½ÅÃ»","¿©¼®","´ã´ç±³¼ö","°­ÀÇÀ¯Çü","½ÅÃ»"};
-					%>
-					<tr bgcolor="#ffff8e">
-						<%
-							for(String s: list_item){
-						%>
+	<div class="row" style="overflow:auto;">
+		<table bgcolor="#A0AFFF" cellpadding="5" width="90%"  align="center" cellspacing="1" id="table_list">
+		<%
+			String selectedYear = request.getParameter("selectedSemesterYear");
+			String selectedSemester = request.getParameter("selectedSemester");
+					
+			mySql = "{? = call SelectTimeTable(?,?,?)}"; 
+			cstmt1 =  conn.prepareCall(mySql);
+			cstmt1.registerOutParameter(1,OracleTypes.CURSOR);
+			cstmt1.setInt(2, Integer.parseInt(session_id));
+			cstmt1.setInt(3, Integer.parseInt(selectedYear));
+			cstmt1.setInt(4, Integer.parseInt(selectedSemester));
+			cstmt1.execute();
+			rs = (ResultSet)pstmt.getObject();
+			
+		%>
+			<thead>
+			<%
+				String list_item[]={"ê³¼ëª©ëª…","ê³¼ëª©ì½”ë“œ","ë¶„ë°˜","ì£¼ê´€í•™ê³¼","ê°•ì˜ì‹œê°„","í•™ì ","ë‹´ë‹¹êµìˆ˜"};
+			%>
+				<tr bgcolor="#ffff8e">
+				<%
+					for(String s: list_item){
+				%>
 						<th><%=s%></th>
-						<%}%>
-					</tr>
-				</thead>
-				<tbody>
-		
-				</tbody>
-			</table>
-			</div>
+				<%}%>
+				</tr>
+			</thead>
+			<tbody>
+			<tr><td></td></tr>
+				<% 
+					
+					while(rs.next()){
+						String course_time = "";
+						document.write("<tr>");
+						document.write("<td>"+rs.getString(2)+"</tr>");//ê³¼ëª©ëª…
+						document.write("<td>"+rs.getInt(1)+"</tr>");//ê³¼ëª©ì½”ë“œ
+						document.write("<td>"+rs.getInt(3)+"</tr>");//ë¶„ë°˜
+						document.write("<td>"+rs.getInt(3)+"</tr>");//ì£¼ê´€í•™ê³¼-->ìˆ˜ì •í•„ìš”
+							course_time = "";
+							cstmt2 = conn.prepareCall("{? = call Number2TableTime(?,?,?,?,?)}")
+							cstmt2.registerOutParameter(1,java.sql.Types.VARCHAR);
+							cstmt2.setInt(2,rs.getInt(6));
+							cstmt2.setInt(3,rs.getInt(7));
+							cstmt2.setInt(4,rs.getInt(8));
+							cstmt2.setInt(5,rs.getInt(9));
+							cstmt2.setInt(6,rs.getInt(5));
+							cstmt2.execute();
+							course_time = stmt2.getString(1);
+						document.write("<td>"+course_time+"</tr>");//ê°•ì˜ì‹œê°„
+						document.write("<td>"+rs.getInt(4)+"</tr>");//í•™ì 
+						document.write("<td>"+rs.getInt(4)+"</tr>");//ë‹´ë‹¹ êµìˆ˜ -->ìˆ˜ì •í•„ìš”
+						
+						cstmt2.close();
+						/*
+						s.subject_id, s.subject_name, 
+            c.course_division, s.subject_credit, 
+            c.room_name, c.course_start1, c.course_end1, c.course_start2, c.course_end2
+						
+						*/
+					}
+				%>
+			</tbody>
+		</table>
 	</div>
-	<div id="fixedfooter">
-		<div class = "inner">
-			<table width="90%" align="center" height="100%">
-				 <tr>
-					 <td> ÃÑ ½ÅÃ» °ú¸ñ ¼ö : </td>
-					 <td id="s_name">333</td>
-					 <td>ÃÑ ½ÅÃ» ÇĞÁ¡</td>
-					 <td>333</td>
-				 </tr> 
-			</table>	
-		</div>
-	</div>		
+</div>
+<!-- í•˜ë‹¨ ìˆ˜ê°•ì‹ ì²­ í™•ì • ë‚´ì—­-->
+<%@include file="bottom.jsp"%>
 	
-
+<div id="fixedfooter">
+	<div class = "inner">
+		<table width="90%" align="center" height="100%">
+			<tr>
+			<td> ì´ ì‹ ì²­ ê³¼ëª© ìˆ˜ : </td>
+			<td id="s_name">333</td>
+			<td>ì´ ì‹ ì²­ í•™ì </td>
+			<td>333</td>
+			</tr> 
+		</table>	
+	</div>
+</div>		
+		
+<%	}catch (ClassNotFoundException e1) {
+		System.out.println("jdbc driver ë¡œë”© ì‹¤íŒ¨");
+	}catch (SQLException e2) {
+		System.out.println("ì˜¤ë¼í´ ì—°ê²° ì‹¤íŒ¨");		
+	}catch(Throwable e3){ 
+		System.out.println(e3);
+	} finally{
+		try{
+			rs.close();
+			pstmt.close();
+			cstmt1.close();
+			conn.close();
+		}catch(Exception e){}
+	}
+%>
 </body>
 </html>
