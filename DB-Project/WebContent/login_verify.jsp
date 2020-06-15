@@ -7,8 +7,8 @@
 	
 	String dbdriver = "oracle.jdbc.driver.OracleDriver";
 	String dburl = "jdbc:oracle:thin:@localhost:1521:orcl";
-	String user = "db1715884"; //individual
-	String passwd = "ss1"; //individual
+	String user = ;//
+	String passwd = ;//
 	Connection myConn = null;
 	Statement stmt = null;
 	ResultSet rs= null;
