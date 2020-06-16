@@ -6,50 +6,31 @@
 <head>
 <meta charset="UTF-8">
 <title>데이터베이스를 활용한 수강신청 시스템입니다.</title>
-<!-- CSS 스타일-->
-<style tyle="text/css">
-html,
-body {
-    margin:0;
-    padding:0;
-    height:100%;
-}
-#fixedfooter {
-position:fixed;
-left:0px;
-bottom:0px;
-width: 100%;
-text-align: center;
-}
-.inner {
-background:#A0AFFF;
-color: white;
-width: 100%;
-padding: 15px;
-display: inline-block;
-}
-</style>
+<!-- CSS 스타일 -->
+<link rel="stylesheet" type="text/css" href = "../CSS/base.css">
 </head>
 <body>
 <!-- 상단 메뉴-->
 	<%@include file="top.jsp"%>
-	
-	<% if(session_id == null) response.sendRedirect("login.jsp"); %>
-	
+<!-- DB연결 -->
+<%@include file= "../deleteEnroll/connection.jsp"%>
 	<%
+	/*
 	Connection conn = null;
+	Statement stmt = null;
 	PreparedStatement pstmt = null;
+	CallableStatement cstmt = null;
+	String sql = null; 
+	ResultSet resultSet = null;
+	
+	String studnetId ; // 세션 id
+	int nowYear, nowSemester; //현재 년도 ,학기
+	
+	
+	*/
 	CallableStatement cstmt1 = null;
 	CallableStatement cstmt2 = null;
-	ResultSet rs = null;
-	String mySql ="";
-	String dbdriver = "oracle.jdbc.driver.OracleDriver";
-	String dburl = "jdbc:oracle:thin:@localhost:1521:orcl";
-	String user = "db1713749";
-	String passwd = "oracle"; 
 	
-	//String userID = request.getParameter("userID");
-	//String userPassword = request.getParameter("userPassword");
 	%>
 
 <!-- 학적 정보-->
@@ -62,8 +43,7 @@ display: inline-block;
 			<tbody>
 			<%		
 			try {
-				Class.forName(dbdriver); 	
-				conn = DriverManager.getConnection(dburl, user, passwd);
+
 				mySql = "select student_id,student_name,department_name,student_semester,student_credit from STUDENTS s, DEPARTMENTS d where s.student_id = ? AND d.department_id = s.department_id ";
 				pstmt =  conn.prepareStatement(mySql);
 				
@@ -193,25 +173,29 @@ display: inline-block;
 	</div>
 </div>
 <!-- 하단 수강신청 확정 내역-->
-<%@include file="bottom.jsp"%>
+	<!-- 수강확정내역 -->
 	
-<div id="fixedfooter">
-	<div class = "inner">
-		<table width="90%" align="center" height="100%">
-			<tr>
-			<td> 총 신청 과목 수 : </td>
-			<td id="s_name">333</td>
-			<td>총 신청 학점</td>
-			<td>333</td>
-			</tr> 
-		</table>	
-	</div>
-</div>		
+	<%
+	
+	/*
+	Select2TimeTable(
+		    sStudentId IN NUMBER,
+		    nYear IN NUMBER,
+		    nSemester IN NUMBER,
+		    cnt_credit OUT NUMBER,
+		    cnt_subject OUT NUMBER
+		) 실행해서  remainCredit변수 선언 후 아래로 값 넘기기
+	*/
+	%>
+	
+	<jsp:include page = "showCredit.jsp">
+		<jsp:param value="<%=remainCredit%>" name="remainCredit"/>
+		<jsp:param value="<%=enrollCredit%>" name="enrollCredit"/>
+		<jsp:param value="<%=maxCredit%>" name="maxCredit"/>
+	</jsp:include>
 		
-<%	}catch (ClassNotFoundException e1) {
-		System.out.println("jdbc driver 로딩 실패");
-	}catch (SQLException e2) {
-		System.out.println("오라클 연결 실패");		
+		
+<%	
 	}catch(Throwable e3){ 
 		System.out.println(e3);
 	} finally{
