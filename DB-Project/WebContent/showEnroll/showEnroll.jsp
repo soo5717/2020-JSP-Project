@@ -9,13 +9,16 @@
 <!-- CSS 스타일 -->
 <link rel="stylesheet" type="text/css" href = "../CSS/base.css">
 <!-- 상단 메뉴-->
-	<%@include file="top.jsp"%>
+<%@include file="../top.jsp"%>
 <!-- DB연결 -->
 <%@include file= "../deleteEnroll/connection.jsp"%>
+<!-- 스크립트 -->
+<%@include file="enrollList.jsp"%>
 </head>
 <body>
 	<%
 	/*
+	//db 연결 정보
 	Connection conn = null;
 	Statement stmt = null;
 	PreparedStatement pstmt = null;
@@ -23,8 +26,9 @@
 	String sql = null; 
 	ResultSet resultSet = null;
 	
-	String studnetId ; // 세션 id string int형은 sId
-	int nowYear, nowSemester; //현재 년도 ,학기
+	//변수 선언: 학번, 현재 년도, 현재 학기 
+	String studnetId= (String) session.getAttribute("user");
+	int nowYear = 0, nowSemester = 0;
 	
 	
 	*/
@@ -32,14 +36,11 @@
 	int sId = Integer.parseInt(studentId);
 	//잔여학점, 수강학점, 최대 수강학점
 	int remainCredit = 0, enrollCredit = 0, maxCredit = 0;
-
-	
-	int studentId = request.getParameter("student_id");
-	String studentName = request.getParameter("student_name");
-	String studentDepName = request.getParameter("department_name");
-	int studentSemester = request.getParameter("student_semester");
-	int studentGrade = studentSemester/2 ;
-	int studentCredit = request.getParameter("student_credit");
+	//학생 이름,학생부서이름
+	String studentName,studentDepName;
+	//학생 학기, 학년, 수강가능 학점
+	int studentSemester,studentGrade;
+	int studentGrade = studentSemester,studentCredit;
 	
 	
 	CallableStatement cstmt1 = null;
@@ -49,21 +50,30 @@
 	<!-- 학적 정보-->
 	<div class="container">
 	<%
-		
+	//부서명
+		sql = "select s.student_name,d.department_name,s.student_semester,s.student_credit"+
+		"from students s, departments d where s.department_id=d.department_id "+
+		"AND s.student_id = "+ Integer.parseInt(studnetId);
+		stmt = conn.createStatement();
+		resultSet = stmt.executeQuery(sql);
+		if(resultSet.next()){
+			studentName = resultSet.getString(1);
+			departmentName = resultSet.getString(2);
+			studentSemester = resultSet.getInt(3);
+			studentGrade = studentSemester / 2;
+			studentCredit = resultSet.getInt(4);
+		}
 	%>
 		<div class="row">
 		<jsp:include page = "academicInfo.jsp">
 			<jsp:param value="<%=sId%>" name="studentId"/>
-			<jsp:param value="<%=sId%>" name="studentName"/>
-			<jsp:param value="<%=sId%>" name="studentDepName"/>
-			<jsp:param value="<%=sId%>" name="studentSemester"/>
-			<jsp:param value="<%=sId%>" name="studentGrade"/>
-			<jsp:param value="<%=sId%>" name="studentCredit"/>
+			<jsp:param value="<%=studentName%>" name="studentName"/>
+			<jsp:param value="<%=departmentName%>" name="studentDepName"/>
+			<jsp:param value="<%=studentSemester%>" name="studentSemester"/>
+			<jsp:param value="<%=studentGrade%>" name="studentGrade"/>
+			<jsp:param value="<%=studentCredit%>" name="studentCredit"/>
 		</jsp:include>
 	</div><br><br><br>
-
-	
-
 		
 <!-- 학기별 수강 조회-->
 	<div class="row">
@@ -92,92 +102,47 @@
 					<option value="english">2학기</option>
 					</select></form>
 				</td>
+				<%				
+					//조회할 학년도,학기 값
+					int selectedYear = Integer.parseInt(request.getParameter("selectedSemesterYear"));
+					int selectedSemester = Integer.parseInt(request.getParameter("selectedSemester"));
+
+					
+				%>	
+			
+					<!--검색 버튼-->
+					<input type="button" value="검색" onclick="add_new_row('table_list',selectedYear,selectedSemester);">
+					
 				</tr> 
 			</tbody>
 		</table>	
 	</div><br><br><br>
-			
+	
+	<!-- 조회할 과목 리스트 -->
 	<div class="row" style="overflow:auto;">
-		<table bgcolor="#A0AFFF" cellpadding="5" width="90%"  align="center" cellspacing="1" id="table_list">
+		<table bgcolor="#A0AFFF" cellpadding="5" width="90%"  align="center" cellspacing="1">
+		<thead>
 		<%
-			String selectedYear = request.getParameter("selectedSemesterYear");
-			String selectedSemester = request.getParameter("selectedSemester");
-					
-			mySql = "{? = call SelectTimeTable(?,?,?)}"; 
-			cstmt1 =  conn.prepareCall(mySql);
-			cstmt1.registerOutParameter(1,OracleTypes.CURSOR);
-			cstmt1.setInt(2, Integer.parseInt(session_id));
-			cstmt1.setInt(3, Integer.parseInt(selectedYear));
-			cstmt1.setInt(4, Integer.parseInt(selectedSemester));
-			cstmt1.execute();
-			rs = (ResultSet)pstmt.getObject();
-			
+			String list_item[]={"과목명","과목코드","분반","주관학과","강의시간","학점","담당교수"};
 		%>
-			<thead>
+			<tr bgcolor="#ffff8e">
 			<%
-				String list_item[]={"과목명","과목코드","분반","주관학과","강의시간","학점","담당교수"};
+				for(String s: list_item){
 			%>
-				<tr bgcolor="#ffff8e">
-				<%
-					for(String s: list_item){
-				%>
-						<th><%=s%></th>
-				<%}%>
-				</tr>
-			</thead>
-			<tbody>
-			<tr><td></td></tr>
-				<% 
-					
-					while(rs.next()){
-						String course_time = "";
-						document.write("<tr>");
-						document.write("<td>"+rs.getString(2)+"</tr>");//과목명
-						document.write("<td>"+rs.getInt(1)+"</tr>");//과목코드
-						document.write("<td>"+rs.getInt(3)+"</tr>");//분반
-						document.write("<td>"+rs.getInt(3)+"</tr>");//주관학과-->수정필요
-							course_time = "";
-							cstmt2 = conn.prepareCall("{? = call Number2TableTime(?,?,?,?,?)}")
-							cstmt2.registerOutParameter(1,java.sql.Types.VARCHAR);
-							cstmt2.setInt(2,rs.getInt(6));
-							cstmt2.setInt(3,rs.getInt(7));
-							cstmt2.setInt(4,rs.getInt(8));
-							cstmt2.setInt(5,rs.getInt(9));
-							cstmt2.setInt(6,rs.getInt(5));
-							cstmt2.execute();
-							course_time = stmt2.getString(1);
-						document.write("<td>"+course_time+"</tr>");//강의시간
-						document.write("<td>"+rs.getInt(4)+"</tr>");//학점
-						document.write("<td>"+rs.getInt(4)+"</tr>");//담당 교수 -->수정필요
-						
-						cstmt2.close();
-						/*
-						s.subject_id, s.subject_name, 
-            c.course_division, s.subject_credit, 
-            c.room_name, c.course_start1, c.course_end1, c.course_start2, c.course_end2
-						
-						*/
-					}
-				%>
-			</tbody>
-		</table>
+				<th><%=s%></th>
+			<%}%>
+			</tr>
+		</thead>
+		<tbody id="table_list">
+	
+		
+		</tbody>
+		
+		
+	</table>
 	</div>
 </div>
 <!-- 하단 수강신청 확정 내역-->
-	<!-- 수강확정내역 -->
-	
-	<%
-	
-	/*
-	Select2TimeTable(
-		    sStudentId IN NUMBER,
-		    nYear IN NUMBER,
-		    nSemester IN NUMBER,
-		    cnt_credit OUT NUMBER,
-		    cnt_subject OUT NUMBER
-		) 실행해서  remainCredit변수 선언 후 아래로 값 넘기기
-	*/
-	%>
 		<!-- 수강확정내역 -->
 	<%
 		sql = "{call Select2TimeTable(?, ?, ?, ?, ?)}";
@@ -192,7 +157,7 @@
 		cstmt.close();
 		conn.close();
 	%>
-	<jsp:include page = "showCredit.jsp">
+	<jsp:include page = "../deleteEnroll/showCredit.jsp">
 		<jsp:param value="<%=remainCredit%>" name="remainCredit"/>
 		<jsp:param value="<%=enrollCredit%>" name="enrollCredit"/>
 		<jsp:param value="<%=maxCredit%>" name="maxCredit"/>
@@ -200,16 +165,11 @@
 		
 		
 <%	
-	}catch(Throwable e3){ 
-		System.out.println(e3);
-	} finally{
-		try{
-			rs.close();
-			pstmt.close();
-			cstmt1.close();
-			conn.close();
-		}catch(Exception e){}
-	}
+resultSet.close();
+pstmt.close();
+cstmt.close();
+stmt.close();
+conn.close();
 %>
 </body>
 </html>

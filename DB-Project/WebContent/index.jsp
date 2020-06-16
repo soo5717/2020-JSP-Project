@@ -9,6 +9,7 @@
 <body>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 	<script type="text/javascript">
+
 	var num_rows=0;//https://lasdri.tistory.com/583
 	var new_row_num=0;
 	function add_new_row(obj,n) {
@@ -24,7 +25,7 @@
 		tag +="<td>\n";
 		tag +="<input type=\"button\" value=\"아래로\" onclick=\"movedown('cma_text[]','cma_num[]','cma_text_value','tr_id',"+(new_row_num + n)+");\" />\n";
 		tag +="</td>\n";
-		tag +="<td align=\"center\">"+((new_row_num + n) +1)+"</td>\n"; //첫번째 열 번호
+		tag +="<td align=\"center\">" +"</td>\n"; //첫번째 열 번호
 		tag +="<td>\n";
 		tag +="<td align=\"center\">"+((new_row_num + n) +1)+"</td>\n"; //첫번째 열 번호
 		tag +="<td>\n";

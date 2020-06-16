@@ -32,11 +32,5 @@
 				<td>수강가능학점</td><td><%=studentCredit%></td>
 			 	</tr> 		
 		</tbody>
-	</table>
-	
-	
-	
-	
-	
-	
+	</table>	
 </div>
