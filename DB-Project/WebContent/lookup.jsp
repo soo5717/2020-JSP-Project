@@ -5,15 +5,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>데이터베이스를 활용한 수강신청 시스템입니다.</title>
+<title>숙명여대 수강 조회</title>
 <!-- CSS 스타일 -->
 <link rel="stylesheet" type="text/css" href = "../CSS/base.css">
-</head>
-<body>
 <!-- 상단 메뉴-->
 	<%@include file="top.jsp"%>
 <!-- DB연결 -->
 <%@include file= "../deleteEnroll/connection.jsp"%>
+</head>
+<body>
 	<%
 	/*
 	Connection conn = null;
@@ -28,6 +28,8 @@
 	
 	
 	*/
+	//잔여학점, 수강학점, 최대 수강학점
+	int remainCredit = 0, enrollCredit = 0, maxCredit = 0;
 	CallableStatement cstmt1 = null;
 	CallableStatement cstmt2 = null;
 	
@@ -58,7 +60,7 @@
 					int studentCredit = rs.getInt("student_credit");
 				%>	
 					<tr>
-				 	<td> 학번 </td><td><%=studentId%></td>
+				 	<td> 학번 </td><td><%=studnetId%></td>
 				 	<td>아름</td><td><%=studentName%></td>
 					<td>소속</td><td><%=studentDepName%></td>
 					</tr> 

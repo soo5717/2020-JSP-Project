@@ -16,9 +16,10 @@
 	String sql = null; 
 	ResultSet resultSet = null;
 	
-	//변수 선언: 학번, 현재 년도, 현재 학기
+	//변수 선언: 학번, 현재 년도, 현재 학기 , 부서명
 	String studnetId= (String) session.getAttribute("user");
 	int nowYear = 0, nowSemester = 0;
+	String departmentName = "";
 	
 	try { //연결 성공
 		Class.forName(driver); 
@@ -38,6 +39,14 @@
 		cstmt.registerOutParameter(1, java.sql.Types.INTEGER);
 		cstmt.execute();
 		nowSemester = cstmt.getInt(1);
+		
+		//부서명
+		sql = "select d.department_name from students s, departments d"
+				+"where s.department_id=d.department_id AND s.student_id = "+ Integer.parseInt(studnetId);
+		stmt = conn.createStatement();
+		resultSet = stmt.executeQuery(sql);
+		if(resultSet.next())
+			departmentName = resultSet.getString(1);
 		
 		//test용 studnet_id
 		studnetId = "1812357";
