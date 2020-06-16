@@ -24,8 +24,8 @@
 <table width= "100%" align="center" bgcolor ="#FFFF99" border> 
 	<tr> 
 		<td align= "center" width="240px"><b><a href ="main.jsp">숙명여자대학교 수강신청</b></td> 
-		<td align= "center"><b><a href ="insert.jsp"> 수강신청</b></td> 
-		<td align= "center"><b><a href ="delete.jsp"> 수강취소</b></td> 
+		<td align= "center"><b><a href ="/DB-Project/insertEnroll/insert.jsp"> 수강신청</b></td> 
+		<td align= "center"><b><a href ="/DB-Project/deleteEnroll/delete.jsp"> 수강취소</b></td> 
 		<td align= "center"><b><a href ="lookup.jsp"> 수강조회</b></td> 
 		<td align= "center"><b><a href ="timatable.jsp">시간표</b></td>
 		<% if(up != null){ %>

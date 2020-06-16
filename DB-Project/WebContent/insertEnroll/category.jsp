@@ -2,21 +2,7 @@
     pageEncoding="UTF-8"%>
 
 <!-- CSS 스타일 -->
-<style type = "text/css">
-    .category{
-		position:relative;
-		left:5%;
-		width: 50%;
-		text-align: center;
-		font-family: sans-serif;
-	}
-	form{
-		position:relative;
-		left:5%;
-		width: 50%;
-		font-family: sans-serif;
-	}
-</style>
+<link rel="stylesheet" type="text/css" href = "../CSS/base.css">
 
 <% int getValue = 0; %> 
 <!-- 스크립트 -->
@@ -42,7 +28,7 @@ function btn_click(value){
 </table>
 
 <!-- 직접입력 -->
-<form action="insert.jsp" id="add">
+<form class="insert" action="insert.jsp" id="add">
     <fieldset>
         과목번호
         <input type="text" name="subject_id" size="4" required>

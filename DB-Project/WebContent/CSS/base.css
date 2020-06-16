@@ -1,0 +1,32 @@
+@charset "UTF-8";
+
+/* 공통 적용 CSS 스타일  */
+div{
+	font-family: sans-serif; 
+}
+
+/* 수강신청 수강취소 하단 */
+.bottom{ 
+	position:fixed;
+	left:0px;
+	bottom:0px;
+	width: 100%;
+	text-align: left;
+	font-family: sans-serif;
+}
+
+/* 수강신청 카테고리 */
+.category{
+	position:relative;
+	left:5%;
+	width: 50%;
+	text-align: center;
+	font-family: sans-serif;
+}
+/* 수강신청 직접신청 */
+.insert{
+	position:relative;
+	left:5%;
+	width: 50%;
+	font-family: sans-serif;
+}

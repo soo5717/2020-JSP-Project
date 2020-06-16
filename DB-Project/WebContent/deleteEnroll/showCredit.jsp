@@ -2,19 +2,15 @@
     pageEncoding="UTF-8"%>
     
 <!-- CSS 스타일 -->
-<style type = "text/css">
-    	.bottom{
-		position:fixed;
-		left:0px;
-		bottom:0px;
-		width: 100%;
-		text-align: left;
-		font-family: sans-serif;
-	}
-</style>
+<link rel="stylesheet" type="text/css" href = "../CSS/base.css">
 
 <!-- 수강확정내역 -->
-<% int remainCredit = 0, enrollCredit = 0, maxCredit = 0; %>
+<% 
+	//insert와 delete에서 파라미터 받아오기
+	String remainCredit = request.getParameter("remainCredit");
+	String enrollCredit = request.getParameter("enrollCredit");
+	String maxCredit = request.getParameter("maxCredit");
+%>
 <div class="bottom">
 	<table width= "100%" align="center" bgcolor ="#FFFF99" border> 
 		<tr> 
