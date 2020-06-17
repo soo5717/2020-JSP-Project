@@ -8,7 +8,7 @@
 <!-- CSS 스타일 -->
 <link rel="stylesheet" type="text/css" href = "../CSS/base.css">
 <!-- 상단 메뉴 -->
-<%@include file= "../top.jsp"%> <br>
+<%@include file= "../top.jsp"%>
 <!-- DB연결 -->
 <%@include file= "../deleteEnroll/connection.jsp"%>
 </head>

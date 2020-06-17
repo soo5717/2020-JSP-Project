@@ -8,7 +8,7 @@
 <!-- CSS 스타일 -->
 <link rel="stylesheet" type="text/css" href = "../CSS/base.css">
 <!-- 상단 메뉴 -->
-<%@include file= "../top.jsp"%><br>
+<%@include file= "../top.jsp"%>
 <!-- DB연결 -->
 <%@include file= "connection.jsp"%>
 </head>
@@ -16,16 +16,13 @@
 	<%
 		//잔여학점, 수강학점, 최대 수강학점
 		int remainCredit = 0, enrollCredit = 0, maxCredit = 0;
-		//과목명, 과목코드, 분반, 주관학과, 교과구분, 강의사간, 이수학점, 담당교수
+		//과목명, 과목코드, 분반, 주관학과, 교과구분, 강의시간, 이수학점, 담당교수
 		String subjectName = null, subjectId = null, couresDivision = null, departmentName = null, 
 				subjectGroup = null, courseTime = null, subjectCredit = null, professorName = null;
 	%>
 	
 	<!-- 자바스크립트 동작 구현 -->
-	<script type="text/javascript">
-	
-	</script>
-	
+	<script type="text/javascript"></script>
 	
 	<!-- 수강신청 목록 -->
 	<div class="row" style="overflow:auto;">
@@ -39,9 +36,8 @@
 			</thead>
 			<!-- 수강신청 바디 -->
 			<tbody>
-				<%  
+				<%  //목록 조회 함수 호출 : 테이블 return
 					sql = "select * from table(SelectTimeTable("+studnetId+","+nowYear+","+nowSemester+"))";
-					System.out.println(sql);
 					resultSet = stmt.executeQuery(sql);
 					
 					if(resultSet != null){
@@ -51,8 +47,8 @@
 							couresDivision = resultSet.getString("course_division");
 							departmentName = resultSet.getString("department_name");
 							subjectGroup = resultSet.getString("subject_group");
-							courseTime = resultSet.getString("subject_credit");
-							subjectCredit = resultSet.getString("professor_name");
+							courseTime = resultSet.getString("course_time");
+							subjectCredit = resultSet.getString("subject_credit");
 							professorName = resultSet.getString("professor_name"); 
 				%>
 						<tr bgcolor="#ffffff" align="center"> 
@@ -73,15 +69,13 @@
 						</tr>
 				<%		}
 					}
-					stmt.close();
-					//
 				%>
 			</tbody>
 		</table>
 	</div>
 	
 	<!-- 수강확정내역 -->
-	<%
+	<%	//수강확정 내역 조회 함수 : 최대 수강학점, 신청 학점 return 
 		sql = "{call Select2TimeTable(?, ?, ?, ?, ?)}";
 		cstmt = conn.prepareCall(sql);
 		cstmt.setInt(1, Integer.parseInt(studnetId));
@@ -91,6 +85,9 @@
 		cstmt.registerOutParameter(5, java.sql.Types.VARCHAR);
 		cstmt.execute();
 		enrollCredit = Integer.parseInt(cstmt.getString(4));
+		
+		//stmt, conn 닫기
+		stmt.close();
 		cstmt.close();
 		conn.close();
 	%>

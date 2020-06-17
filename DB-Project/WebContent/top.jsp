@@ -33,4 +33,4 @@
 		<%} %>
 		<td align= "center"><b><%=log%></b></td>
 	</tr> 
-</table>
+</table><br>

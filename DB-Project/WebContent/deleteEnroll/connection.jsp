@@ -16,7 +16,7 @@
 	String sql = null; 
 	ResultSet resultSet = null;
 	
-	//변수 선언: 학번, 현재 년도, 현재 학기
+	//변수 선언: 학번, 현재 년도, 현재 학기 
 	String studnetId= (String) session.getAttribute("user");
 	int nowYear = 0, nowSemester = 0;
 	
@@ -38,6 +38,10 @@
 		cstmt.registerOutParameter(1, java.sql.Types.INTEGER);
 		cstmt.execute();
 		nowSemester = cstmt.getInt(1);
+		
+		cstmt.close();
+		
+		
 		
 		//test용 studnet_id
 		studnetId = "1812357";
