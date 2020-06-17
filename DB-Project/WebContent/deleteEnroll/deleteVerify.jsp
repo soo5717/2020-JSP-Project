@@ -9,7 +9,7 @@
 	String subjectId = request.getParameter("subjectId");
 	sql = "delete from enroll where student_id=? and subject_id=?";
 	pstmt = conn.prepareStatement(sql);
-	pstmt.setString(1, studnetId);
+	pstmt.setString(1, studentId);
 	pstmt.setString(2, subjectId);
 	resultSet = pstmt.executeQuery();
 %>
@@ -18,6 +18,7 @@
 	location.href="delete.jsp"; 
 	</script>
 <%	
+	//conn, stmt 닫기
 	pstmt.close();
 	conn.close();
 %>

@@ -14,8 +14,6 @@
 </head>
 <body>
 	<%
-		//잔여학점, 수강학점, 최대 수강학점
-		int remainCredit = 0, enrollCredit = 0, maxCredit = 0;
 		//과목명, 과목코드, 분반, 주관학과, 교과구분, 강의시간, 이수학점, 담당교수
 		String subjectName = null, subjectId = null, couresDivision = null, departmentName = null, 
 				subjectGroup = null, courseTime = null, subjectCredit = null, professorName = null;
@@ -38,6 +36,7 @@
 			<tbody>
 				<%  //목록 조회 함수 호출 : 테이블 return
 					sql = "select * from table(SelectTimeTable("+studentId+","+nowYear+","+nowSemester+"))";
+					stmt = conn.createStatement();
 					resultSet = stmt.executeQuery(sql);
 					
 					if(resultSet != null){
@@ -69,36 +68,15 @@
 						</tr>
 				<%		}
 					}
+					//stmt, conn 닫기
+					stmt.close();
+					conn.close();
 				%>
 			</tbody>
 		</table>
 	</div>
 	
 	<!-- 수강확정내역 -->
-	<%	//수강확정 내역 조회 함수 : 최대 수강학점, 신청 학점 return 
-		sql = "{call Select2TimeTable(?, ?, ?, ?, ?, ?)}";
-		cstmt = conn.prepareCall(sql);
-		cstmt.setInt(1, Integer.parseInt(studentId));
-		cstmt.setInt(2, nowYear);
-		cstmt.setInt(3, nowSemester);
-		cstmt.registerOutParameter(4, java.sql.Types.INTEGER);
-		cstmt.registerOutParameter(5, java.sql.Types.INTEGER);
-		cstmt.registerOutParameter(6, java.sql.Types.INTEGER);
-		cstmt.execute();
-		
-		enrollCredit = cstmt.getInt(4);
-		maxCredit = cstmt.getInt(6);
-		remainCredit = maxCredit - enrollCredit;
-		
-		//stmt, conn 닫기
-		stmt.close();
-		cstmt.close();
-		conn.close();
-	%>
-	<jsp:include page = "showCredit.jsp">
-		<jsp:param value="<%=remainCredit%>" name="remainCredit"/>
-		<jsp:param value="<%=enrollCredit%>" name="enrollCredit"/>
-		<jsp:param value="<%=maxCredit%>" name="maxCredit"/>
-	</jsp:include>
+	<jsp:include page = "showCredit.jsp" flush="false"/>
 </body>
 </html>

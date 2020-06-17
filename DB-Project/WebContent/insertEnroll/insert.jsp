@@ -44,10 +44,6 @@
 
 
 	<!-- 수강확정내역 -->
-	<jsp:include page = "../deleteEnroll/showCredit.jsp">
-		<jsp:param value="<%=remainCredit%>" name="remainCredit"/>
-		<jsp:param value="<%=enrollCredit%>" name="enrollCredit"/>
-		<jsp:param value="<%=maxCredit%>" name="maxCredit"/>
-	</jsp:include>
+	<jsp:include page = "../deleteEnroll/showCredit.jsp" flush="false"/>
 </body>
 </html>
