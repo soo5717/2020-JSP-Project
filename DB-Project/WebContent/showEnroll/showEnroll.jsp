@@ -32,6 +32,12 @@
 	
 	
 	*/
+	//과목명, 과목코드, 분반, 주관학과, 교과구분, 강의사간, 이수학점, 담당교수
+	String subjectName = null, subjectId = null, couresDivision = null, departmentName = null, 
+		 subjectCredit = null, professorName = null, course_room = null;
+	//강의시간
+	int course_start1,course_end1,course_start2,course_end2;
+
 	//학번 - 세션 id int 형
 	int sId = Integer.parseInt(studentId);
 	//잔여학점, 수강학점, 최대 수강학점
@@ -106,7 +112,6 @@
 					//조회할 학년도,학기 값
 					int selectedYear = Integer.parseInt(request.getParameter("selectedSemesterYear"));
 					int selectedSemester = Integer.parseInt(request.getParameter("selectedSemester"));
-
 					
 				%>	
 			
@@ -134,7 +139,53 @@
 			</tr>
 		</thead>
 		<tbody id="table_list">
-	
+			<%  
+					sql = "select * from table(SelectTimeTable("+studnetId+","+selectedYear+","+ selectedSemester+"))";
+					System.out.println(sql);
+					resultSet = stmt.executeQuery(sql);
+					
+					if(resultSet != null){
+						while(resultSet.next()){
+							subjectId = resultSet.getString("subject_id");
+							subjectName = resultSet.getString("subject_name");
+							couresDivision = resultSet.getString("course_division");
+							departmentName = resultSet.getString("department_name");
+
+							course_start1 = resultSet.getInt("course_start1");
+							course_end1 = resultSet.getInt("course_end1");
+							course_start2 = resultSet.getInt("course_start2");
+							course_end2 = resultSet.getInt("course_end2");
+							course_room = resultSet.getString("course_room");
+							professorName = resultSet.getString("professor_name"); 
+							
+			
+							
+							cstmt = conn.prepareCall("{? = call Number2TableTime(?,?,?,?,?)}")
+							cstmt.registerOutParameter(1,java.sql.Types.VARCHAR);
+							cstmt.setInt(2,course_start1);
+							cstmt.setInt(3,course_end1);
+							cstmt.setInt(4,course_start2);
+							cstmt.setInt(5,course_end2);
+							cstmt.setInt(6,course_room);
+							cstmt.execute();
+							String course_time = stmt2.getString(1);
+							
+							
+							
+				%>
+						<tr bgcolor="#ffffff" align="center"> 
+							<td><%=subjectName%></td>
+							<td><%=subjectId%></td>
+							<td><%=couresDivision%></td>
+							<td><%=departmentName%></td>
+							<td><%=course_time%></td>
+							<td><%=subjectCredit%></td>
+							<td><%=professorName%></td>
+						</tr>
+				<%		}
+					}
+					
+				%>
 		
 		</tbody>
 		
@@ -148,8 +199,8 @@
 		sql = "{call Select2TimeTable(?, ?, ?, ?, ?)}";
 		cstmt = conn.prepareCall(sql);
 		cstmt.setInt(1, Integer.parseInt(studnetId));
-		cstmt.setInt(2, nowYear);
-		cstmt.setInt(3, nowSemester);
+		cstmt.setInt(2, selectedYear);
+		cstmt.setInt(3, selectedSemester);
 		cstmt.registerOutParameter(4, java.sql.Types.VARCHAR);
 		cstmt.registerOutParameter(5, java.sql.Types.VARCHAR);
 		cstmt.execute();
