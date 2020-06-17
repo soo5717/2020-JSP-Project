@@ -11,7 +11,7 @@
 	String enrollCredit = request.getParameter("enrollCredit");
 	String maxCredit = request.getParameter("maxCredit");
 %>
-<div class="bottom">
+<div class="bottom" id="fixedfooter">
 	<table width= "100%" align="center" bgcolor ="#FFFF99" border> 
 		<tr> 
 			<td width="55%">수강 확정 내역</td> 

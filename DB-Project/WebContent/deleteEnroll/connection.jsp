@@ -39,9 +39,12 @@
 		cstmt.execute();
 		nowSemester = cstmt.getInt(1);
 		
+<<<<<<< HEAD
 		cstmt.close();
 		
 		
+=======
+>>>>>>> branch 'master' of https://github.com/soo5717/2020-JSP-Project.git
 		
 		//test용 studnet_id
 		studnetId = "1812357";
