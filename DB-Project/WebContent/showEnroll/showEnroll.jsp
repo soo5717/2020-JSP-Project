@@ -139,21 +139,20 @@
 		</thead>
 		<tbody id="table_list">
 			<%  
+			
+				sql = "select * from table(SelectTimeTable("+studentId+","+selectedYear+","+selectedSemester+"))";
+				stmt = conn.createStatement();
+				resultSet = stmt.executeQuery(sql);
 				
-					sql = "select * from table(SelectTimeTable("+studentId+","+selectedYear+","+ selectedSemester+"))";
-					System.out.println(sql);
-					resultSet = stmt.executeQuery(sql);
-					
-					if(resultSet != null){
-						while(resultSet.next()){
-							subjectId = resultSet.getString("subject_id");
-							subjectName = resultSet.getString("subject_name");
-							couresDivision = resultSet.getString("course_division");
-							departmentName = resultSet.getString("department_name");
-							
-							course_time = resultSet.getString("course_time");
-							subjectCredit = resultSet.getString("subject_credit");
-							professorName = resultSet.getString("professor_name"); 					
+				if(resultSet != null){
+					while(resultSet.next()){
+						subjectId = resultSet.getString("subject_id");
+						subjectName = resultSet.getString("subject_name");
+						couresDivision = resultSet.getString("course_division");
+						departmentName = resultSet.getString("department_name");
+						course_time = resultSet.getString("course_time");
+						subjectCredit = resultSet.getString("subject_credit");
+						professorName = resultSet.getString("professor_name"); 			
 				%>
 						<tr bgcolor="#ffffff" align="center"> 
 							<td><%=subjectName%></td>
@@ -199,10 +198,9 @@
 	cstmt.close();
 	conn.close();
 	%>
-	<jsp:include page = "../deleteEnroll/showCredit.jsp">
-		<jsp:param value="<%=remainCredit%>" name="remainCredit"/>
-		<jsp:param value="<%=enrollCredit%>" name="enrollCredit"/>
-		<jsp:param value="<%=maxCredit%>" name="maxCredit"/>
+	<jsp:include page = "showCreditEnroll.jsp">
+		<jsp:param value="<%=selectedYear%>" name="selectedYear"/>
+		<jsp:param value="<%=selectedSemester%>" name="selectedSemester"/>
 	</jsp:include>	
 <%	
 
