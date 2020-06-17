@@ -17,7 +17,7 @@
 	ResultSet resultSet = null;
 	
 	//변수 선언: 학번, 현재 년도, 현재 학기 
-	String studnetId= (String) session.getAttribute("user");
+	String studentId= (String) session.getAttribute("user");
 	int nowYear = 0, nowSemester = 0;
 	
 	try { //연결 성공
@@ -42,7 +42,7 @@
 		cstmt.close();
 		
 		//test용 studnet_id
-		studnetId = "1812357";
+		studentId = "1812357";
 		
 	} catch(ClassNotFoundException e) { //드라이버 로딩 실패
 		System.out.println("jdbc driver 로딩 실패"); 

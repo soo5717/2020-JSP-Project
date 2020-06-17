@@ -37,7 +37,7 @@
 			<!-- 수강신청 바디 -->
 			<tbody>
 				<%  //목록 조회 함수 호출 : 테이블 return
-					sql = "select * from table(SelectTimeTable("+studnetId+","+nowYear+","+nowSemester+"))";
+					sql = "select * from table(SelectTimeTable("+studentId+","+nowYear+","+nowSemester+"))";
 					resultSet = stmt.executeQuery(sql);
 					
 					if(resultSet != null){
@@ -78,7 +78,7 @@
 	<%	//수강확정 내역 조회 함수 : 최대 수강학점, 신청 학점 return 
 		sql = "{call Select2TimeTable(?, ?, ?, ?, ?)}";
 		cstmt = conn.prepareCall(sql);
-		cstmt.setInt(1, Integer.parseInt(studnetId));
+		cstmt.setInt(1, Integer.parseInt(studentId));
 		cstmt.setInt(2, nowYear);
 		cstmt.setInt(3, nowSemester);
 		cstmt.registerOutParameter(4, java.sql.Types.VARCHAR);
