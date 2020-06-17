@@ -23,7 +23,6 @@
 	<div class="loginBox">
 	 비밀번호 수정
 	<form method="post" action="update_verify.jsp"><!-- action 파일은 DB수정하는 기능 해야 함 -->
-	<div align="center"><input type="text" name="userID" placeholder="학번"></div>
 	<div align="center"><input type="text" name="userOldPassword" placeholder="기존 비밀번호"></div>
 	<div align="center"><input type="password" name="userPassword" placeholder="신규 비밀번호"></div>
 	<div align="center"><input type="password" name="userPassword" placeholder="신규 비밀번호 확인"></div>
