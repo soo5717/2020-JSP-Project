@@ -76,15 +76,19 @@
 	
 	<!-- 수강확정내역 -->
 	<%	//수강확정 내역 조회 함수 : 최대 수강학점, 신청 학점 return 
-		sql = "{call Select2TimeTable(?, ?, ?, ?, ?)}";
+		sql = "{call Select2TimeTable(?, ?, ?, ?, ?, ?)}";
 		cstmt = conn.prepareCall(sql);
 		cstmt.setInt(1, Integer.parseInt(studentId));
 		cstmt.setInt(2, nowYear);
 		cstmt.setInt(3, nowSemester);
-		cstmt.registerOutParameter(4, java.sql.Types.VARCHAR);
-		cstmt.registerOutParameter(5, java.sql.Types.VARCHAR);
+		cstmt.registerOutParameter(4, java.sql.Types.INTEGER);
+		cstmt.registerOutParameter(5, java.sql.Types.INTEGER);
+		cstmt.registerOutParameter(6, java.sql.Types.INTEGER);
 		cstmt.execute();
-		enrollCredit = Integer.parseInt(cstmt.getString(4));
+		
+		enrollCredit = cstmt.getInt(4);
+		maxCredit = cstmt.getInt(6);
+		remainCredit = maxCredit - enrollCredit;
 		
 		//stmt, conn 닫기
 		stmt.close();
