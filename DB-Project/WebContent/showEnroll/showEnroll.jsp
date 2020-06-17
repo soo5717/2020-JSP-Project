@@ -39,8 +39,11 @@
 	int studentSemester= 0,studentGrade= 0,studentCredit= 0;
 	
 		
-	String searchYear = request.getParameter("selectedYear");
-	String searchSemester = request.getParameter("selectedSemester");
+	String selectedYear = request.getParameter("selectedYear");
+	String selectedSemester = request.getParameter("selectedSemester");
+	if(selectedYear == null) selectedYear= Integer.toString(nowYear);
+	if(selectedYear == null) selectedYear= Integer.toString(nowSemester);
+	
 	%>
 
 	<!-- 학적 정보-->
@@ -84,7 +87,7 @@
 <!-- 학기별 수강 조회-->
 	<div class="row">
 		<table width="90%" border = "1"  align="center" height="100%">
-			<form method="post" id="year_semester" action="showEnroll.jsp?selectedYear=<%=searchYear%>&selectedSemester=<%=searchSemester%>">
+			<form method="get" id="year_semester" action="showEnroll.jsp?">
 			<thead>
 				<tr style="background-color: #ffff8e; text-align: center;">학기별 수강  조회</tr>
 			</thead>
@@ -93,39 +96,37 @@
 				<tr>
 				<td> 학년도 </td>
 				<td>
-					<select name="selectedYear" id="sYear" >
-					<option value="2020">2020학년도</option>
-					<option value="2019">2019학년도</option>
-					<option value="2018">2018학년도</option>
-					<option value="2017">2017학년도</option>
+					<select name="selectedYear" id="selectedYear" >
+					<option value=2020>2020학년도</option>
+					<option value=2019>2019학년도</option>
+					<option value=2018>2018학년도</option>
+					<option value=2017>2017학년도</option>
 					</select>
 				</td>
 				<td> 학기 </td>
 				<td>
-					<select name="selectedSemester" id="sSemester" >
-					<option value="1">1학기</option>
-					<option value="2">2학기</option>
+					<select name="selectedSemester" id="selectedSemester" >
+					<option value=1>1학기</option>
+					<option value=2>2학기</option>
 					</select>
 				</td>
-			
-					<!--검색 버튼-->
-					<td>  <button type="submit" name="submit">검색</button></td><td width="50%"></td>
-					
-					
+				<!--검색 버튼-->
+				<td><input type="submit" name="submit" value="강의 검색"> </td><td width="50%"></td>
 				</tr> 
 			</tbody>
 			</form>
 		</table>
+		<script>
+			document.getElementById("selectedSemester").value = "<%=selectedSemester%>";
+			document.getElementById("selectedYear").value = "<%=selectedYear%>";
+		</script>
 		<%				
-					//조회할 학년도,학기 값
-			//int selectedYear = Integer.parseInt(request.getParameter("selectedSemesterYear"));
-			//int selectedSemester = Integer.parseInt(request.getParameter("selectedSemester"));
+					
+			selectedYear = request.getParameter("selectedSemesterYear");
+			selectedSemester = request.getParameter("selectedSemester");
 					
 		%>	
-		<script>
-			document.getElementById("sSemester").value = "<%=searchSemester%>";
-			document.getElementById("sYear").value = "<%=searchYear%>";
-		</script>
+		
 			
 	</div><br><br><br>
 
@@ -147,7 +148,7 @@
 		<tbody id="table_list">
 			<%  
 				
-					sql = "select * from table(SelectTimeTable("+studentId+","+searchYear+","+ searchSemester+"))";
+					sql = "select * from table(SelectTimeTable("+studentId+","+selectedYear+","+ selectedSemester+"))";
 					System.out.println(sql);
 					resultSet = stmt.executeQuery(sql);
 					
@@ -190,18 +191,22 @@
 <!-- 하단 수강신청 확정 내역-->
 		<!-- 수강확정내역 -->
 	<%//수강확정 내역 조회 함수 : 최대 수강학점, 신청 학점 return 
-	sql = "{call Select2TimeTable(?, ?, ?, ?, ?)}";
-	cstmt = conn.prepareCall(sql);
-	int temp = Integer.parseInt(searchYear);
-	cstmt.setInt(1, Integer.parseInt(studentId));
-	cstmt.setInt(2, temp );
-	temp = Integer.parseInt(searchSemester) ;
-	cstmt.setInt(3, temp);
-	cstmt.registerOutParameter(4, java.sql.Types.VARCHAR);
-	cstmt.registerOutParameter(5, java.sql.Types.VARCHAR);
-	cstmt.execute();
-	enrollCredit = Integer.parseInt(cstmt.getString(4));
 	
+	/*
+	sql = "{call Select2TimeTable(?, ?, ?, ?, ?, ?)}";
+	cstmt = conn.prepareCall(sql);
+	cstmt.setInt(1, Integer.parseInt(studentId));
+	cstmt.setInt(2, Integer.parseInt(searchYear));
+	cstmt.setInt(3, Integer.parseInt(searchSemester));
+	cstmt.registerOutParameter(4, java.sql.Types.INTEGER);
+	cstmt.registerOutParameter(5, java.sql.Types.INTEGER);
+	cstmt.registerOutParameter(6, java.sql.Types.INTEGER);
+	cstmt.execute();
+	
+	enrollCredit = cstmt.getInt(4);
+	maxCredit = cstmt.getInt(6);
+	remainCredit = maxCredit - enrollCredit;
+	*/
 	//stmt, conn 닫기
 	stmt.close();
 	cstmt.close();
