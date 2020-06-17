@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
 <%@ page import=" java.sql .*" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta charset="EUC-KR">
 <title>비밀번호 수정</title>
 </head>
 <body>
@@ -15,8 +15,8 @@
 	
 	String dbdriver = "oracle.jdbc.driver.OracleDriver";
 	String dburl = "jdbc:oracle:thin:@localhost:1521:orcl";
-	String user = ;//
-	String passwd = ;//
+	String user = "db1715884";
+	String passwd = "ss1"; 
 	Connection myConn = null;
 	Statement stmt = null;
 	int rs=0;
@@ -29,20 +29,40 @@
 	}catch(Exception e){
 		System.out.println("DB연결오류");
 	}
+
 	mySQL="update students set student_pw = '"+userPassword+"'where student_id='" + userID + "' and student_pw='" + userOldPassword + "'";
 	try{
 	rs = stmt.executeUpdate(mySQL);
 	System.out.println(mySQL);%>
-	alert("성공!");
+	<script>
+	alert("비밀번호 수정이 완료됐습니다.");
+	</script>
+	
 	<%
 	
 	} catch(SQLException ex) {
 	   String sMessage;
-	   if (ex.getErrorCode() == 20002) sMessage="암호는 4자리 이상이어야 합니다";
-	  else if (ex.getErrorCode() == 20003) sMessage="암호에 공란은 입력되지 않습니다.";
-	  else sMessage="잠시 후 다시 시도하십시오";
+	   if (ex.getErrorCode() == 20002) {
+		   sMessage="암호는 4자리 이상이어야 합니다";
+	   }
+	  else if (ex.getErrorCode() == 20003) {
+		  sMessage="암호에 공란은 입력되지 않습니다.";
+	  }
+	  else {
+		  sMessage="잠시 후 다시 시도하십시오";
+	  }
+	   System.out.println("비밀번호 수정 실패");
+	   %>
+	   <script>
+	    var msg = "<%=sMessage%>";
+			alert(msg);
+		</script>
+	   <%
 	}
+	stmt.close(); 
+	myConn.close(); 
 	%>
+	
 
 
 </body>
