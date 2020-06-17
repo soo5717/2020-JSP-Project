@@ -10,6 +10,7 @@
 <% 
 	//잔여학점, 수강학점, 최대 수강학점
 	int remainCredit = 0, enrollCredit = 0, maxCredit = 0;
+
 	//수강확정 내역 조회  프로시저 : 최대 수강학점, 신청 학점 return 
 	sql = "{call Select2TimeTable(?, ?, ?, ?, ?, ?)}";
 	cstmt = conn.prepareCall(sql);
@@ -29,6 +30,7 @@
 	cstmt.close();
 	conn.close();
 %>
+
 <div class="bottom" id="fixedfooter">
 	<table width= "100%" align="center" bgcolor ="#FFFF99" border> 
 		<tr> 

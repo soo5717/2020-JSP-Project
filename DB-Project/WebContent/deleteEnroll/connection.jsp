@@ -23,6 +23,7 @@
 	try { //연결 성공
 		Class.forName(driver); 
 		conn = DriverManager.getConnection(url, user, password); 
+		//stmt = conn.createStatement();
 		
 		//현재 년도 반환
 		sql = "{? = call Date2EnrollYear(SYSDATE)}";

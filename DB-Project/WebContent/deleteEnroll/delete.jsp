@@ -20,7 +20,16 @@
 	%>
 	
 	<!-- 자바스크립트 동작 구현 -->
-	<script type="text/javascript"></script>
+	<script type="text/javascript">
+		function deleteCheck(){
+			if(confirm("수강 취소하시겠습니까?") == true){
+				document.removeFrom.submit();
+			}
+			else{
+				return false;
+			}
+		}
+	</script>
 	
 	<!-- 수강신청 목록 -->
 	<div class="row" style="overflow:auto;">
@@ -60,9 +69,9 @@
 							<td><%=subjectCredit%></td>
 							<td><%=professorName%></td>
 							<td>
-								<form method= "post" action="deleteVerify.jsp">
+								<form method= "post" action="deleteCheck.jsp" name="removeFrom">
 									<input type="hidden" name="subjectId" value="<%=subjectId%>">
-									<input type="submit" name="submit" value="취소">
+									<input type="button" name="submit" value="취소" onclick="deleteCheck()">
 								</form>
 							</td>
 						</tr>
