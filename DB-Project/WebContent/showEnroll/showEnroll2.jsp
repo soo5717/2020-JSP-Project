@@ -48,11 +48,6 @@
 	int studentSemester,studentGrade;
 	int studentGrade = studentSemester,studentCredit;
 	
-		
-	String searchYear = request.getParameter("selectedYear");
-	String searchSemester = request.getParameter("selectedsemester");
-
-	
 	
 	CallableStatement cstmt1 = null;
 	CallableStatement cstmt2 = null;
@@ -89,7 +84,6 @@
 <!-- 학기별 수강 조회-->
 	<div class="row">
 		<table width="90%" border = "1"  align="center" height="100%">
-			<form method="post" id="year_semester" action="showEnroll.jsp?selectedYear=<%=searchYear%>&selectedSemester=<%=searchSemester%>">
 			<thead>
 				<tr style="background-color: #ffff8e; text-align: center;">학기별 수강  조회</tr>
 			</thead>
@@ -97,43 +91,38 @@
 			<tbody>
 				<tr>
 				<td> 학년도 </td>
-				<td>
-					<select name="selectedYear" id="sYear" >
-					<option value="2020">2020학년도</option>
-					<option value="2019">2019학년도</option>
-					<option value="2018">2018학년도</option>
-					<option value="2017">2017학년도</option>
-					</select><
+				<td><form>
+					<select name="selectedYear" >
+					<option value="none">=== 선택 ===</option>
+					<option value="korean">2020</option>
+					<option value="english">2019</option>
+					<option value="chinese">2018</option>
+					<option value="spanish">2017</option>
+					</select></form>
 				</td>
 				<td> 학기 </td>
-				<td>
-					<select name="selectedSemester" id="sSemester" >
-					<option value="1">1학기</option>
-					<option value="2">2학기</option>
-					</select>
+				<td><form>
+					<select name="selectedSemester" >
+					<option value="none">=== 선택 ===</option>
+					<option value="korean">1학기</option>
+					<option value="english">2학기</option>
+					</select></form>
 				</td>
+				<%				
+					//조회할 학년도,학기 값
+					int selectedYear = Integer.parseInt(request.getParameter("selectedSemesterYear"));
+					int selectedSemester = Integer.parseInt(request.getParameter("selectedSemester"));
+					
+				%>	
 			
 					<!--검색 버튼-->
-					<td>  <button>검색</button></td><td width="50%"></td>
 					<input type="button" value="검색" onclick="add_new_row('table_list',selectedYear,selectedSemester);">
 					
 				</tr> 
 			</tbody>
-			</form>
-		</table>
-		<%				
-					//조회할 학년도,학기 값
-			//int selectedYear = Integer.parseInt(request.getParameter("selectedSemesterYear"));
-			//int selectedSemester = Integer.parseInt(request.getParameter("selectedSemester"));
-					
-		%>	
-		<script>
-			document.getElementById("sSemester").value = "<%=searchSemester%>";
-			document.getElementById("sYear").value = "<%=searchYear%>";
-		</script>
-			
+		</table>	
 	</div><br><br><br>
-
+	
 	<!-- 조회할 과목 리스트 -->
 	<div class="row" style="overflow:auto;">
 		<table bgcolor="#A0AFFF" cellpadding="5" width="90%"  align="center" cellspacing="1">
@@ -151,8 +140,7 @@
 		</thead>
 		<tbody id="table_list">
 			<%  
-				
-					sql = "select * from table(SelectTimeTable("+studnetId+","+searchYear+","+ searchSemester+"))";
+					sql = "select * from table(SelectTimeTable("+studnetId+","+selectedYear+","+ selectedSemester+"))";
 					System.out.println(sql);
 					resultSet = stmt.executeQuery(sql);
 					
@@ -211,8 +199,8 @@
 		sql = "{call Select2TimeTable(?, ?, ?, ?, ?)}";
 		cstmt = conn.prepareCall(sql);
 		cstmt.setInt(1, Integer.parseInt(studnetId));
-		cstmt.setInt(2, searchYear);
-		cstmt.setInt(3, searchSemester);
+		cstmt.setInt(2, selectedYear);
+		cstmt.setInt(3, selectedSemester);
 		cstmt.registerOutParameter(4, java.sql.Types.VARCHAR);
 		cstmt.registerOutParameter(5, java.sql.Types.VARCHAR);
 		cstmt.execute();
