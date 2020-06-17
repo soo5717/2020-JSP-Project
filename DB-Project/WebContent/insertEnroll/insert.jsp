@@ -18,43 +18,38 @@
 		//과목명, 과목코드, 분반, 주관학과, 교과구분, 강의시간, 이수학점, 담당교수
 		String subjectName = null, subjectId = null, couresDivision = null, departmentName = null, 
 				subjectGroup = null, courseTime = null, subjectCredit = null, professorName = null;
+		
 		//정원, 신청 인원, 여석
 		int maxNumber, enrollNumber, remainNumber;
+		
+		//그룹 ID (직접입력: 0, 전체: 1, 교양: 2, 전공: 3, 타전공: 4)
 		String groupId = request.getParameter("groupId");
 		if (groupId == null) groupId = "0";
-		System.out.println(groupId);
+		//System.out.println(groupId);
 	%>
 	
 	<!-- 자바스크립트 동작 구현 -->
-	<script type="text/javascript">
-		//수강취소 여부 확인 함수
-		function insertCheck(){
-			document.insertForm.submit();
-		}
-	</script>
+	<script type="text/javascript"></script>
 
-	<!-- 카테고리 -->
+	<!-- 그룹 선택 -->
 	<jsp:include page = "groupSelect.jsp" flush="false"/>
-	
 	<%	if(groupId.equals("0")){ %>
 		<!-- 직접입력 -->
 		<form class="insert" action="insert.jsp" id="add">
 		    <fieldset>
-		        과목번호
-		        <input type="text" name="subject_id" size="4" required>
-		        분반
-		        <input type="text" name="course_division" size="1" required>
-		        <input type="submit" value="신청">
+				과목번호<input type="text" name="subject_id" size="4" required>
+				분반<input type="text" name="course_division" size="1" required>
+		    	<input type="submit" value="신청">
 		    </fieldset>
-		</form>
+		</form><br>
 	<% } %>
 
 	<!-- 수강신청 목록 -->
-	<div class="row" style="overflow:auto;">
+	<br><div class="row" style="overflow:auto;">
 		<table cellpadding="5" width="90%"  align="center" cellspacing="1" id="table_list">
 			<!-- 수강신청 헤드 -->
 			<thead>
-				<% String list_item[]={"과목명","과목코드","분반","주관학과","교과구분", "강의시간","이수학점","담당교수", "정원","신청","여석", "신청"};%>
+				<% String list_item[]={"과목명","과목코드","분반","주관학과","교과구분", "강의시간","이수학점","담당교수", "정원","신청","여석", "신청"}; %>
 				<tr bgcolor="#ffff8e">
 					<% for(String s: list_item){%> <th><%=s%></th><%}%>
 				</tr>
