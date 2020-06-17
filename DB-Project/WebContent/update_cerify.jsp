@@ -9,7 +9,7 @@
 </head>
 <body>
 	<% 
-	String userID=request.getParameter("userID");
+	String userID=(String)session.getAttribute("session_id");
 	String userOldPassword=request.getParameter("userOldPassword");
 	String userPassword=request.getParameter("userPassword");
 	
