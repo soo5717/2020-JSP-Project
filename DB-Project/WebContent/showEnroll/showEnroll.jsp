@@ -41,8 +41,8 @@
 		
 	String selectedYear = request.getParameter("selectedYear");
 	String selectedSemester = request.getParameter("selectedSemester");
-	if(selectedYear == null) selectedYear= Integer.toString(nowYear);
-	if(selectedYear == null) selectedYear= Integer.toString(nowSemester);
+	if(selectedYear == null ) selectedYear = Integer.toString(nowYear);
+	if(selectedSemester == null ) selectedSemester = Integer.toString(nowSemester);
 	
 	%>
 
@@ -87,7 +87,7 @@
 <!-- 학기별 수강 조회-->
 	<div class="row">
 		<table width="90%" border = "1"  align="center" height="100%">
-			<form method="get" id="year_semester" action="showEnroll.jsp?">
+			<form method="get" id="year_semester" action="showEnroll.jsp">
 			<thead>
 				<tr style="background-color: #ffff8e; text-align: center;">학기별 수강  조회</tr>
 			</thead>
@@ -97,6 +97,7 @@
 				<td> 학년도 </td>
 				<td>
 					<select name="selectedYear" id="selectedYear" >
+					<option value=<%=selectedYear%>><%=selectedYear%>학년도</option>
 					<option value=2020>2020학년도</option>
 					<option value=2019>2019학년도</option>
 					<option value=2018>2018학년도</option>
@@ -106,6 +107,7 @@
 				<td> 학기 </td>
 				<td>
 					<select name="selectedSemester" id="selectedSemester" >
+					<option value=<%=selectedSemester%>><%=selectedSemester%>학기</option>
 					<option value=1>1학기</option>
 					<option value=2>2학기</option>
 					</select>
@@ -116,17 +118,7 @@
 			</tbody>
 			</form>
 		</table>
-		<script>
-			document.getElementById("selectedSemester").value = "<%=selectedSemester%>";
-			document.getElementById("selectedYear").value = "<%=selectedYear%>";
-		</script>
-		<%				
-					
-			selectedYear = request.getParameter("selectedSemesterYear");
-			selectedSemester = request.getParameter("selectedSemester");
-					
-		%>	
-		
+
 			
 	</div><br><br><br>
 
@@ -151,11 +143,6 @@
 					sql = "select * from table(SelectTimeTable("+studentId+","+selectedYear+","+ selectedSemester+"))";
 					System.out.println(sql);
 					resultSet = stmt.executeQuery(sql);
-					
-					/* t.subject_id, t.subject_name, 
-                                    t.course_division, t.department_name, 
-                                    t.subject_group, t.subject_credit, 
-                                    t.professor_name, course_time*/
 					
 					if(resultSet != null){
 						while(resultSet.next()){
