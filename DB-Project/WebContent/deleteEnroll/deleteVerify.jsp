@@ -18,7 +18,7 @@
 	location.href="delete.jsp"; 
 	</script>
 <%	
-	//conn, stmt 닫기
+	//conn, pstmt 닫기
 	pstmt.close();
 	conn.close();
 %>

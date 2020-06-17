@@ -26,7 +26,7 @@
 	maxCredit = cstmt.getInt(6);
 	remainCredit = maxCredit - enrollCredit;
 	
-	//stmt, conn 닫기
+	//cstmt, conn 닫기
 	cstmt.close();
 	conn.close();
 %>

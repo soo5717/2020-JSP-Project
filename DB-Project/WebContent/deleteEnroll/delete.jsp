@@ -13,6 +13,7 @@
 <%@include file= "connection.jsp"%>
 </head>
 <body>
+	<!-- 변수 선언 -->
 	<%
 		//과목명, 과목코드, 분반, 주관학과, 교과구분, 강의시간, 이수학점, 담당교수
 		String subjectName = null, subjectId = null, couresDivision = null, departmentName = null, 
@@ -21,15 +22,7 @@
 	
 	<!-- 자바스크립트 동작 구현 -->
 	<script type="text/javascript">
-		function deleteCheck(){
-			if(confirm("수강 취소하시겠습니까?") == true){
-				document.removeFrom.submit();
-			}
-			else{
-				return false;
-				
-			}
-		}
+		//수강취소를 누르면 수강 취소하시겠습니까  라는 confirm을 띄울 생각이었는데 잘 동작하지 않아서 추후 다시 해볼 예정
 	</script>
 	
 	<!-- 수강신청 목록 -->
@@ -43,46 +36,44 @@
 				</tr>
 			</thead>
 			<!-- 수강신청 바디 -->
-			<tbody>
-				<%  //목록 조회 함수 호출 : 테이블 return
-					sql = "select * from table(SelectTimeTable("+studentId+","+nowYear+","+nowSemester+"))";
-					stmt = conn.createStatement();
-					resultSet = stmt.executeQuery(sql);
-					
-					if(resultSet != null){
-						while(resultSet.next()){
-							subjectId = resultSet.getString("subject_id");
-							subjectName = resultSet.getString("subject_name");
-							couresDivision = resultSet.getString("course_division");
-							departmentName = resultSet.getString("department_name");
-							subjectGroup = resultSet.getString("subject_group");
-							courseTime = resultSet.getString("course_time");
-							subjectCredit = resultSet.getString("subject_credit");
-							professorName = resultSet.getString("professor_name"); 
-				%>
-						<tr bgcolor="#ffffff" align="center"> 
-							<td><%=subjectName%></td>
-							<td><%=subjectId%></td>
-							<td><%=couresDivision%></td>
-							<td><%=departmentName%></td>
-							<td><%=subjectGroup%></td>
-							<td><%=courseTime%></td>
-							<td><%=subjectCredit%></td>
-							<td><%=professorName%></td>
-							<td>
-								<form method= "post" action="deleteCheck.jsp" name="removeFrom">
-									<input type="hidden" name="subjectId" value="<%=subjectId%>">
-									<input type="button" name="submit" value="취소" onclick="deleteCheck()">
-								</form>
-							</td>
-						</tr>
-				<%		}
-					}
-					//stmt, conn 닫기
-					stmt.close();
-					conn.close();
-				%>
-			</tbody>
+			<%  //목록 조회 함수 호출 : 테이블 return
+				sql = "select * from table(SelectTimeTable("+studentId+","+nowYear+","+nowSemester+"))";
+				stmt = conn.createStatement();
+				resultSet = stmt.executeQuery(sql);
+				
+				if(resultSet != null){
+					while(resultSet.next()){
+						subjectId = resultSet.getString("subject_id");
+						subjectName = resultSet.getString("subject_name");
+						couresDivision = resultSet.getString("course_division");
+						departmentName = resultSet.getString("department_name");
+						subjectGroup = resultSet.getString("subject_group");
+						courseTime = resultSet.getString("course_time");
+						subjectCredit = resultSet.getString("subject_credit");
+						professorName = resultSet.getString("professor_name"); 
+			%>
+					<tr bgcolor="#ffffff" align="center"> 
+						<td><%=subjectName%></td>
+						<td><%=subjectId%></td>
+						<td><%=couresDivision%></td>
+						<td><%=departmentName%></td>
+						<td><%=subjectGroup%></td>
+						<td><%=courseTime%></td>
+						<td><%=subjectCredit%></td>
+						<td><%=professorName%></td>
+						<td>
+							<form method= "post" action="deleteVerify.jsp">
+								<input type="hidden" name="subjectId" value="<%=subjectId%>">
+								<input type="submit" name="submit" value="취소">
+							</form>
+						</td>
+					</tr>
+			<%		}
+				}
+				//stmt, conn 닫기
+				stmt.close();
+				conn.close();
+			%>
 		</table>
 	</div>
 	
