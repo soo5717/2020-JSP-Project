@@ -39,7 +39,6 @@
 	</script>
 	
 	<%
-	
 	} catch(SQLException ex) {
 	   String sMessage;
 	   if (ex.getErrorCode() == 20002) {

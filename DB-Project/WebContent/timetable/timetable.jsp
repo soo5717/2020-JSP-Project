@@ -20,6 +20,7 @@ table, tr, th, td{
 <title>시간표</title>
 </head>
 <body>
+
 <%@include file="../top.jsp"%>
 	<div>
 	학기별 시간표 조회

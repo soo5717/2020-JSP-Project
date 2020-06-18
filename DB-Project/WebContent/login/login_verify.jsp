@@ -25,8 +25,6 @@
 	rs = stmt.executeQuery(mySQL);
 	System.out.println(mySQL);
 	
-	
-	
 	if (rs.next()){
 		String session_id = rs.getString("s_id");
 		 session.setAttribute("session_id", session_id );
