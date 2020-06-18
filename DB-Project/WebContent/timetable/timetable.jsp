@@ -4,28 +4,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-div.timetable{
-	border: 3px solid black;
-}
-table, tr, th, td{
-			border : 1px solid black;
-			text-align: center;
-		}
-		td{
-			width: 20px;
-		}
-</style>
+
 <meta charset="UTF-8">
 <title>시간표</title>
 </head>
 <body>
-
 <%@include file="../top.jsp"%>
 	<div>
-	학기별 시간표 조회
+	<h3>학기별 시간표 조회</h3>
 		<div>
-		<form method="post" action="timeTable_verify.jsp"><!-- action 파일은 DB수정하는 기능 해야 함 -->
+		<form method="post" action="timetable_verify.jsp"><!-- action 파일은 DB수정하는 기능 해야 함 -->
 			<div style="float:left; width:25%;">
 			<label for="years">학년도</label>
 			<select id="year" name="year">
@@ -54,7 +42,7 @@ table, tr, th, td{
 	</div>
 	
 	<div>
-	<jsp:include page="timetable_verify.jsp" flush="false"/>		
+			
 	</div>
 </body>
 </html>

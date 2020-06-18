@@ -8,6 +8,8 @@
 <title>조회 시간표</title>
 </head>
 <body>
+
+<jsp:include page="timetable.jsp" flush="false"/>
 <div>		
 			
 			<script type="text/javascript">
@@ -32,15 +34,15 @@
 				var cr_dv;
 				var pr_name;
 				var room_name;
-				document.write("결과 검색");
+				document.write("<br><h4 align=\"left\">결과 검색</h4>");
 				document.write("<table width=\"75%\" align=\"center\" border>");
 				document.write("<tr>");
-				document.write("<th>시간</th>");
-				document.write("<th>월요일</th>");
-				document.write("<th>화요일</th>");
-				document.write("<th>수요일</th>");
-				document.write("<th>목요일</th>");
-				document.write("<th>금요일</th>");
+				document.write("<th bgcolor =\"#FFFF99\">시간</th>");
+				document.write("<th bgcolor =\"#FFFF99\">월요일</th>");
+				document.write("<th bgcolor =\"#FFFF99\">화요일</th>");
+				document.write("<th bgcolor =\"#FFFF99\">수요일</th>");
+				document.write("<th bgcolor =\"#FFFF99\">목요일</th>");
+				document.write("<th bgcolor =\"#FFFF99\">금요일</th>");
 				document.write("</tr>");
 				for(i=0;i<x;i++)
 				{
@@ -62,8 +64,8 @@
 	
 	String dbdriver = "oracle.jdbc.driver.OracleDriver";
 	String dburl = "jdbc:oracle:thin:@localhost:1521:orcl";
-	String user = "db1715884";
-	String passwd = "ss1"; 
+	String user = "db1715884";// here
+	String passwd = "ss1"; //here
 	Connection myConn = null;
 	Statement stmt = null;
 	ResultSet rs= null;
@@ -144,9 +146,15 @@
 			</script>
 				
 		</div>
-		<div align="right">
-			총 신청 과목수:<%=count%>
-			총 신청 학점:<%=all_credit%>
+		<div  align="center">
+		<p>
+		<table width="74%" bgcolor ="#FFFF99" border>
+		<tr>
+			<th align="right">총 신청 과목수:<%=count%>&nbsp;&nbsp;</th>
+			<th align="right">총 신청 학점:<%=all_credit%>&nbsp;&nbsp;</th>
+		</tr>
+		</table>
+		</p>
 		</div>
 
 		<%
