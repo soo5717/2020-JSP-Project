@@ -50,12 +50,15 @@
 	  else {
 		  sMessage="잠시 후 다시 시도하십시오";
 	  }
+	   
 	   System.out.println("비밀번호 수정 실패");
 	   %>
 	   <script>
 	    var msg = "<%=sMessage%>";
-			alert(msg);
+		alert(msg);
+		location.href = '../main.jsp';
 		</script>
+		
 	   <%
 	}
 	stmt.close(); 

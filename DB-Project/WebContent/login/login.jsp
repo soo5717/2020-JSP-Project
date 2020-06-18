@@ -5,29 +5,19 @@
 <head>
 <meta charset="UTF - 8">
 <title>수강신청 시스템 로그인</title>
-<style>
-div.loginBox{
-  	background-color: #FFFF99;
-	text-align: center;
-	padding:20px;
-	position: absolute;
-	top: 30%;
-	left: 30%;
-	height: 30%;
-	width: 40%;
-}
-
-</style>
 </head>
 <body>
-	<%@include file="../top.jsp"%>
+
+<%@include file="../top.jsp"%>
 	 
-	<div class="loginBox">
+	<div align="center" >
 	 로그인
-	 <form method="post" action="login_verify.jsp">
-	<div align="center"><input type="text" name="userID" placeholder="아이디"></div>
-	<div align="center"><input type="password" name="userPassword" placeholder="패스워드"></div>
-	<div align="center"><INPUT TYPE="SUBMIT" NAME="Submit" VALUE=" 로그인 " style="background-color:white;"></div>
+	<table bgcolor ="#FFFF99" border>
+	<form method="post" action="login_verify.jsp">
+	<tr><td><div align="center"><input type="text" name="userID" placeholder="아이디"></div></td></tr>
+	<tr><td><div align="center"><input type="password" name="userPassword" placeholder="패스워드"></div></td></tr>
+	<tr><td><div align="center"><INPUT TYPE="SUBMIT" NAME="Submit" VALUE=" 로그인 " style="background-color:white;"></div></td></tr>
+	</table>
 	</form>
 	</div>
 

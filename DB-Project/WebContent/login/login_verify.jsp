@@ -7,8 +7,8 @@
 	
 	String dbdriver = "oracle.jdbc.driver.OracleDriver";
 	String dburl = "jdbc:oracle:thin:@localhost:1521:orcl";
-	String user = "db1713749";//
-	String passwd = "oracle";//
+	String user = "db1715884";
+	String passwd = "ss1"; 
 	Connection myConn = null;
 	Statement stmt = null;
 	ResultSet rs= null;
@@ -21,20 +21,24 @@
 	}catch(Exception e){
 		System.out.println("DB연결오류");
 	}
-	mySQL="select s_id from students where s_id='" + userID + "' and s_pwd='" + userPassword + "'";
+
+	mySQL="select student_id from students where student_id='" + userID + "' and student_pw='" + userPassword + "'";
 	rs = stmt.executeQuery(mySQL);
 	System.out.println(mySQL);
 	
+	
+	
 	if (rs.next()){
-		String session_id = rs.getString("s_id");
+		String session_id = rs.getString("student_id");
 		 session.setAttribute("session_id", session_id );
-		response.sendRedirect("main.jsp");
+		response.sendRedirect("../main.jsp");
 		System.out.println("로그인 성공");
 	}
 	else{
 		response.sendRedirect("login.jsp");
 		System.out.println("로그인 실패");
 	}
+
 	stmt.close(); 
 	myConn.close(); 
 %>

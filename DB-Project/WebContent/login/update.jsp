@@ -1,35 +1,25 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF - 8">
-<title>¼ö°­½ÅÃ» ½Ã½ºÅÛ ºñ¹Ð¹øÈ£ º¯°æ</title>
-<style>
-.loginBox{
-  	background-color: #D6D1FF;
-	text-align: center;
-	padding:20px;
-	position: absolute;
-	top: 30%;
-	left: 30%;
-	height: 30%;
-	width: 40%;
-}
-
-</style>
+<meta charset="UTF-8">
+<title>ìˆ˜ê°•ì‹ ì²­ ì‹œìŠ¤í…œ ë¹„ë°€ë²ˆí˜¸ ë³€ê²½</title>
 </head>
 <body>
 <%@include file="../top.jsp"%>
-	 
-	<div class="loginBox">
-	 ºñ¹Ð¹øÈ£ ¼öÁ¤
-	<form method="post" action="update_verify.jsp"><!-- action ÆÄÀÏÀº DB¼öÁ¤ÇÏ´Â ±â´É ÇØ¾ß ÇÔ -->
-	<div align="center"><input type="text" name="userOldPassword" placeholder="±âÁ¸ ºñ¹Ð¹øÈ£"></div>
-	<div align="center"><input type="password" name="userPassword" placeholder="½Å±Ô ºñ¹Ð¹øÈ£"></div>
-	<div align="center"><input type="password" name="userPassword" placeholder="½Å±Ô ºñ¹Ð¹øÈ£ È®ÀÎ"></div>
-	<div align="center"><INPUT TYPE="SUBMIT" NAME="checkPwd" VALUE=" È®ÀÎ " style="background-color:white;"></div> 
+
+
+	<div width="50%" height="30" align="center">
+	 ë¹„ë°€ë²ˆí˜¸ ìˆ˜ì •
+	<table bgcolor ="#FFFF99" border>
+	<form method="post" action="update_verify.jsp"><!-- action íŒŒì¼ì€ DBìˆ˜ì •í•˜ëŠ” ê¸°ëŠ¥ í•´ì•¼ í•¨ -->
+	<tr><td><div align="center"><input type="text" name="userOldPassword" placeholder="ê¸°ì¡´ ë¹„ë°€ë²ˆí˜¸"></div></td></tr>
+	<tr><td><div align="center"><input type="password" name="userPassword" placeholder="ì‹ ê·œ ë¹„ë°€ë²ˆí˜¸"></div></td></tr>
+	<tr><td><div align="center"><input type="password" name="userPassword" placeholder="ì‹ ê·œ ë¹„ë°€ë²ˆí˜¸ í™•ì¸"></div></td></tr>
+	<tr><td><div align="center"><INPUT TYPE="SUBMIT" NAME="checkPwd" VALUE=" í™•ì¸ " style="background-color:white;"></div></td></tr> 
 	</form>
+	</table>
 	</div>
 
 </body>
