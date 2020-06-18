@@ -4,7 +4,7 @@
 <!-- CSS 스타일 -->
 <link rel="stylesheet" type="text/css" href = "../CSS/base.css">
 <!-- DB연결 -->
-<%@include file= "../util/connection.jsp"%>
+<%@include file= "../utility/connection.jsp"%>
 
 <!-- 수강확정내역 -->
 <% 
