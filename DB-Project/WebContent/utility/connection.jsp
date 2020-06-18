@@ -5,6 +5,7 @@
 	//DB연결 정보
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:orcl"; 
+	//수연, 윤정, 현진 -> 각자에 맞게 변경 후 push할 때는 connection 파일은 제외하고!
 	String user = "db1712357";
 	String password = "ss2";
 	

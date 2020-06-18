@@ -2,7 +2,7 @@
     pageEncoding="UTF-8" import= " java.sql .*"%>
 
 <!-- DB연결 -->
-<%@include file= "connection.jsp"%>
+<%@include file= "../utility/connection.jsp"%>
 
 <!-- 수강취소 이벤트 -->
 <%

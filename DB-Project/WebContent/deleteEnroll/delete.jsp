@@ -10,7 +10,7 @@
 <!-- 상단 메뉴 -->
 <%@include file= "../top.jsp"%>
 <!-- DB연결 -->
-<%@include file= "connection.jsp"%>
+<%@include file= "../utility/connection.jsp"%>
 </head>
 <body>
 	<!-- 변수 선언 -->
@@ -78,6 +78,6 @@
 	</div>
 	
 	<!-- 수강확정내역 -->
-	<jsp:include page = "showCredit.jsp" flush="false"/>
+	<jsp:include page = "../utility/showCredit.jsp" flush="false"/>
 </body>
 </html>
