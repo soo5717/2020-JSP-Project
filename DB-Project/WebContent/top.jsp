@@ -27,7 +27,7 @@
 		<td align= "center"><b><a href ="/DB-Project/insertEnroll/insert.jsp"> 수강신청</b></td> 
 		<td align= "center"><b><a href ="/DB-Project/deleteEnroll/delete.jsp"> 수강취소</b></td> 
 		<td align= "center"><b><a href ="lookup.jsp"> 수강조회</b></td> 
-		<td align= "center"><b><a href ="timatable.jsp">시간표</b></td>
+		<td align= "center"><b><a href ="/timetable/timatable.jsp">시간표</b></td>
 		<% if(up != null){ %>
 			<td align= "center"><b><%=up%></b></td>
 		<%} %>
