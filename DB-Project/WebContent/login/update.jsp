@@ -19,6 +19,7 @@
 </style>
 </head>
 <body>
+<%@include file="../top.jsp"%>
 	 
 	<div class="loginBox">
 	 비밀번호 수정
