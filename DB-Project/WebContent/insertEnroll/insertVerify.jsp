@@ -20,7 +20,7 @@
 	System.out.println(result);
 %>
 	<script>
-	alert("수강 신청 되었습니다!<%=result%>"); 
+	alert("<%=result%>"); 
 	location.href="insert.jsp"; 
 	</script>
 <%	

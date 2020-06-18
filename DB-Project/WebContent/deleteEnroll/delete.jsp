@@ -20,11 +20,6 @@
 				subjectGroup = null, courseTime = null, subjectCredit = null, professorName = null;
 	%>
 	
-	<!-- 자바스크립트 동작 구현 -->
-	<script type="text/javascript">
-		//수강취소를 누르면 수강 취소하시겠습니까  라는 confirm을 띄울 생각이었는데 잘 동작하지 않아서 추후 다시 해볼 예정
-	</script>
-	
 	<!-- 수강신청 목록 -->
 	<div class="row" style="overflow:auto;">
 		<table cellpadding="5" width="90%"  align="center" cellspacing="1" id="table_list">

@@ -64,20 +64,20 @@
 		    	<input type="submit" value="신청">
 		    </fieldset>
 		</form>
-	<% } %>
+	<%	} %>
 
 	<!-- 수강신청 목록 -->
 	<br><div class="row" style="overflow:auto;">
 		<table cellpadding="5" width="90%"  align="center" cellspacing="1" id="table_list">
 			<!-- 수강신청 헤드 -->
 			<thead>
-				<% String list_item[]={"과목명","과목코드","분반","주관학과","교과구분", "강의시간","이수학점","담당교수", "정원","신청","여석", "신청"}; %>
+				<%	String list_item[]={"과목명","과목코드","분반","주관학과","교과구분", "강의시간","이수학점","담당교수", "정원","신청","여석", "신청"}; %>
 				<tr bgcolor="#ffff8e">
-					<% for(String s: list_item){%> <th><%=s%></th><%}%>
+					<%	for(String s: list_item){%> <th><%=s%></th><%}%>
 				</tr>
 			</thead>
 			<!-- 수강신청 바디 -->
-			<%  //목록 조회 함수 호출 : 테이블 return
+			<%	//목록 조회 함수 호출 : 테이블 return
 				if(!groupId.equals("-1")){
 					sql = "select * from table(SelectEnrollTable("+studentId+","+groupId+"))";
 					stmt = conn.createStatement();
@@ -92,9 +92,10 @@
 							subjectGroup = resultSet.getString("subject_group");
 							courseTime = resultSet.getString("course_time");
 							subjectCredit = resultSet.getString("subject_credit");
+							professorName = resultSet.getString("professor_name"); 
 							maxNumber = resultSet.getInt("course_personnel");
+							enrollNumber = resultSet.getInt("course_pcount");
 							remainNumber = resultSet.getInt("course_remain");
-							professorName = resultSet.getString("course_professor"); 
 			%>
 						<tr bgcolor="#ffffff" align="center"> 
 							<td><%=subjectName%></td>
@@ -106,7 +107,7 @@
 							<td><%=subjectCredit%></td>
 							<td><%=professorName%></td>
 							<td><%=maxNumber%></td>
-							<td><%=maxNumber-remainNumber%></td>
+							<td><%=enrollNumber%></td>
 							<td><%=remainNumber%></td>
 							<td>
 								<form method= "post" action="insertVerify.jsp">
@@ -124,8 +125,7 @@
 				conn.close();
 			%>
 		</table>
-	</div>
-
+	</div><br><br>
 
 	<!-- 수강확정내역 -->
 	<jsp:include page = "../utility/showCredit.jsp" flush="false"/>

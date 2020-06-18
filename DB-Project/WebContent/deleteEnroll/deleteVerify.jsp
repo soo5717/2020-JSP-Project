@@ -11,13 +11,16 @@
 	pstmt = conn.prepareStatement(sql);
 	pstmt.setString(1, studentId);
 	pstmt.setString(2, subjectId);
-	resultSet = pstmt.executeQuery();
+	int row = pstmt.executeUpdate();
+	
+	if(row != 0){
 %>
-	<script>
-	alert("수강 취소 되었습니다!"); 
-	location.href="delete.jsp"; 
-	</script>
+		<script>
+		alert("수강 취소 되었습니다!"); 
+		location.href="delete.jsp"; 
+		</script>
 <%	
+	}
 	//conn, pstmt 닫기
 	pstmt.close();
 	conn.close();
