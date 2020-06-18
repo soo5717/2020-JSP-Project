@@ -10,7 +10,7 @@
 <!-- 상단 메뉴 -->
 <%@include file= "../top.jsp"%>
 <!-- DB연결 -->
-<%@include file= "../deleteEnroll/connection.jsp"%>
+<%@include file= "../utility/connection.jsp"%>
 </head>
 <body>
 	<!-- 변수 선언 -->
@@ -24,8 +24,30 @@
 		
 		//그룹 ID (직접입력: 0, 전체: 1, 교양: 2, 전공: 3, 타전공: 4)
 		String groupId = request.getParameter("groupId");
-		if (groupId == null) groupId = "0";
-		//System.out.println(groupId);
+		if (groupId == null){ 
+			groupId = "-1";
+		}
+		else{
+			switch(groupId){
+			case "0":
+				groupId = "-1";
+				break;
+			case "1": 
+				groupId = "2";
+				break;
+			case "2": 
+				groupId = "0";
+				break;
+			case "3":
+				groupId = "1";
+				break;
+			case "4":
+				groupId = "3";
+				break;
+			}
+		}
+		System.out.println(groupId);
+		
 	%>
 	
 	<!-- 자바스크립트 동작 구현 -->
@@ -33,15 +55,15 @@
 
 	<!-- 그룹 선택 -->
 	<jsp:include page = "groupSelect.jsp" flush="false"/>
-	<%	if(groupId.equals("0")){ %>
+	<%	if(groupId.equals("-1")){ %>
 		<!-- 직접입력 -->
-		<form class="insert" action="insert.jsp" id="add">
+		<form class="insert" method= "post" action="insertVerify.jsp">
 		    <fieldset>
-				과목번호<input type="text" name="subject_id" size="4" required>
-				분반<input type="text" name="course_division" size="1" required>
+				과목번호 <input type="text" name="subjectId" size="4" required>
+				분반 <input type="text" name="couresDivision" size="1" required>
 		    	<input type="submit" value="신청">
 		    </fieldset>
-		</form><br>
+		</form>
 	<% } %>
 
 	<!-- 수강신청 목록 -->
@@ -56,41 +78,49 @@
 			</thead>
 			<!-- 수강신청 바디 -->
 			<%  //목록 조회 함수 호출 : 테이블 return
-				sql = "select * from table(SelectTimeTable("+studentId+","+nowYear+","+nowSemester+"))";
-				stmt = conn.createStatement();
-				resultSet = stmt.executeQuery(sql);
+				if(!groupId.equals("-1")){
+					sql = "select * from table(SelectEnrollTable("+studentId+","+groupId+"))";
+					stmt = conn.createStatement();
+					resultSet = stmt.executeQuery(sql);
 				
-				if(resultSet != null){
-					while(resultSet.next()){
-						subjectId = resultSet.getString("subject_id");
-						subjectName = resultSet.getString("subject_name");
-						couresDivision = resultSet.getString("course_division");
-						departmentName = resultSet.getString("department_name");
-						subjectGroup = resultSet.getString("subject_group");
-						courseTime = resultSet.getString("course_time");
-						subjectCredit = resultSet.getString("subject_credit");
-						professorName = resultSet.getString("professor_name"); 
+					if(resultSet != null){
+						while(resultSet.next()){
+							subjectName = resultSet.getString("subject_name");
+							subjectId = resultSet.getString("subject_id");
+							couresDivision = resultSet.getString("course_division");
+							departmentName = resultSet.getString("dep_name");
+							subjectGroup = resultSet.getString("subject_group");
+							courseTime = resultSet.getString("course_time");
+							subjectCredit = resultSet.getString("subject_credit");
+							maxNumber = resultSet.getInt("course_personnel");
+							remainNumber = resultSet.getInt("course_remain");
+							professorName = resultSet.getString("course_professor"); 
 			%>
-					<tr bgcolor="#ffffff" align="center"> 
-						<td><%=subjectName%></td>
-						<td><%=subjectId%></td>
-						<td><%=couresDivision%></td>
-						<td><%=departmentName%></td>
-						<td><%=subjectGroup%></td>
-						<td><%=courseTime%></td>
-						<td><%=subjectCredit%></td>
-						<td><%=professorName%></td>
-						<td>
-							<form method= "post" action="insertVerify.jsp" name="insertForm" onsubmit="insertCheck()">
-								<input type="hidden" name="subjectId" value="<%=subjectId%>">
-								<input type="submit" name="submit" value="신청">
-							</form>
-						</td>
-					</tr>
-			<%		}
+						<tr bgcolor="#ffffff" align="center"> 
+							<td><%=subjectName%></td>
+							<td><%=subjectId%></td>
+							<td><%=couresDivision%></td>
+							<td><%=departmentName%></td>
+							<td><%=subjectGroup%></td>
+							<td><%=courseTime%></td>
+							<td><%=subjectCredit%></td>
+							<td><%=professorName%></td>
+							<td><%=maxNumber%></td>
+							<td><%=maxNumber-remainNumber%></td>
+							<td><%=remainNumber%></td>
+							<td>
+								<form method= "post" action="insertVerify.jsp">
+									<input type="hidden" name="subjectId" value="<%=subjectId%>">
+									<input type="hidden" name="couresDivision" value="<%=couresDivision%>">
+									<input type="submit" name="submit" value="신청">
+								</form>
+							</td>
+						</tr>
+			<%			}
+					}
+					stmt.close();
 				}
 				//stmt, conn 닫기
-				stmt.close();
 				conn.close();
 			%>
 		</table>
@@ -98,6 +128,6 @@
 
 
 	<!-- 수강확정내역 -->
-	<jsp:include page = "../deleteEnroll/showCredit.jsp" flush="false"/>
+	<jsp:include page = "../utility/showCredit.jsp" flush="false"/>
 </body>
 </html>

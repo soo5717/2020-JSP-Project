@@ -2,20 +2,29 @@
     pageEncoding="UTF-8"%>
 
 <!-- DB연결 -->
-<%@include file= "../deleteEnroll/connection.jsp"%>
+<%@include file= "../utility/connection.jsp"%>
 
 <!-- 수강신청 이벤트 -->
 <%
-
-
-
+	String subjectId = request.getParameter("subjectId");
+	String couresDivision = request.getParameter("couresDivision");
+	sql = "{call InsertEnroll(?, ?, ?, ?)}";
+	cstmt = conn.prepareCall(sql);
+	cstmt.setInt(1, Integer.parseInt(studentId));
+	cstmt.setInt(2, Integer.parseInt(subjectId));
+	cstmt.setInt(3, Integer.parseInt(couresDivision));
+	cstmt.registerOutParameter(4, java.sql.Types.VARCHAR);
+	cstmt.execute();
+	
+	String result = cstmt.getString(4);
+	System.out.println(result);
 %>
 	<script>
-	alert("수강 신청 되었습니다!"); 
+	alert("수강 신청 되었습니다!<%=result%>"); 
 	location.href="insert.jsp"; 
 	</script>
 <%	
-	//conn, stmt 닫기
-	//pstmt.close();
+	//cstmt, conn 닫기
+	cstmt.close();
 	conn.close();
 %>
