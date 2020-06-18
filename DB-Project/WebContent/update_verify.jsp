@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>비밀번호 수정</title>
+<title>��й�ȣ ����</title>
 </head>
 <body>
 	<% 
@@ -27,7 +27,7 @@
 		myConn=DriverManager.getConnection(dburl, user, passwd);
 		stmt  = myConn.createStatement();
 	}catch(Exception e){
-		System.out.println("DB연결오류");
+		System.out.println("DB�������");
 	}
 
 	mySQL="update students set student_pw = '"+userPassword+"'where student_id='" + userID + "' and student_pw='" + userOldPassword + "'";
@@ -35,7 +35,7 @@
 	rs = stmt.executeUpdate(mySQL);
 	System.out.println(mySQL);%>
 	<script>
-	alert("비밀번호 수정이 완료됐습니다.");
+	alert("��й�ȣ ������ �Ϸ�ƽ��ϴ�.");
 	</script>
 	
 	<%
@@ -43,15 +43,15 @@
 	} catch(SQLException ex) {
 	   String sMessage;
 	   if (ex.getErrorCode() == 20002) {
-		   sMessage="암호는 4자리 이상이어야 합니다";
+		   sMessage="��ȣ�� 4�ڸ� �̻��̾�� �մϴ�";
 	   }
 	  else if (ex.getErrorCode() == 20003) {
-		  sMessage="암호에 공란은 입력되지 않습니다.";
+		  sMessage="��ȣ�� ������ �Էµ��� �ʽ��ϴ�.";
 	  }
 	  else {
-		  sMessage="잠시 후 다시 시도하십시오";
+		  sMessage="��� �� �ٽ� �õ��Ͻʽÿ�";
 	  }
-	   System.out.println("비밀번호 수정 실패");
+	   System.out.println("��й�ȣ ���� ����");
 	   %>
 	   <script>
 	    var msg = "<%=sMessage%>";
