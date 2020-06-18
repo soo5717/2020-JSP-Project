@@ -10,9 +10,8 @@
 
 <%@include file="../top.jsp"%>
 	 
-	<div align="center" >
-	 로그인
-	<table bgcolor ="#FFFF99" border>
+	 <div align="center"><h2>로그인<h2></div>
+	<table bgcolor ="#FFFF99" border width="40%" align="center">
 	<form method="post" action="login_verify.jsp">
 	<tr><td><div align="center"><input type="text" name="userID" placeholder="아이디"></div></td></tr>
 	<tr><td><div align="center"><input type="password" name="userPassword" placeholder="패스워드"></div></td></tr>

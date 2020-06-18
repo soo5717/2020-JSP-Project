@@ -11,7 +11,7 @@
 
 
 	<div width="50%" height="30" align="center">
-	 비밀번호 수정
+	 <h2>비밀번호 수정</h2>
 	<table bgcolor ="#FFFF99" border>
 	<form method="post" action="update_verify.jsp"><!-- action 파일은 DB수정하는 기능 해야 함 -->
 	<tr><td><div align="center"><input type="text" name="userOldPassword" placeholder="기존 비밀번호"></div></td></tr>
