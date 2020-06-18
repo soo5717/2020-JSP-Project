@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<!-- CSS 스타일 -->
+<link rel="stylesheet" type="text/css" href = "CSS/base.css">
+
 <% 
 	String session_id = (String) session.getAttribute("user"); 
 	String log, up; 
@@ -13,24 +17,17 @@
 	}
 %> 
 
-<!-- CSS 스타일 -->
-<style type = "text/css">
-	a{
-		font-family: sans-serif; 
-	}
-</style>
-
 <!-- 상단 메뉴 -->
-<table width= "100%" align="center" bgcolor ="#FFFF99" border> 
+<table class="top" bgcolor ="#FFFF99" border> 
 	<tr> 
-		<td align= "center" width="240px"><b><a href ="main.jsp">숙명여자대학교 수강신청</b></td> 
-		<td align= "center"><b><a href ="/DB-Project/insertEnroll/insert.jsp"> 수강신청</b></td> 
-		<td align= "center"><b><a href ="/DB-Project/deleteEnroll/delete.jsp"> 수강취소</b></td> 
-		<td align= "center"><b><a href ="lookup.jsp"> 수강조회</b></td> 
-		<td align= "center"><b><a href ="timetable/timatable.jsp">시간표</b></td>
+		<td align= "center" width="240px"><b><a href ="main.jsp">숙명여자대학교 수강신청</a></b></td> 
+		<td align= "center"><b><a href ="/DB-Project/insertEnroll/insert.jsp"> 수강신청</a></b></td> 
+		<td align= "center"><b><a href ="/DB-Project/deleteEnroll/delete.jsp"> 수강취소</a></b></td> 
+		<td align= "center"><b><a href ="lookup.jsp"> 수강조회</a></b></td> 
+		<td align= "center"><b><a href ="timetable/timatable.jsp"></a>시간표</b></td>
 		<% if(up != null){ %>
 			<td align= "center"><b><%=up%></b></td>
 		<%} %>
 		<td align= "center"><b><%=log%></b></td>
 	</tr> 
-</table><br>
+</table><br><br>
