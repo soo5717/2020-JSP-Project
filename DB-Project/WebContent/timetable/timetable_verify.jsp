@@ -10,7 +10,13 @@
 <body>
 
 <jsp:include page="timetable.jsp" flush="false"/>
-<div>		
+<div style="position=relative;">
+<%
+	String session_id = (String)session.getAttribute("session_id");
+	if (session_id == null) {
+		response.sendRedirect("../main.jsp");
+	}
+%>		
 			
 			<script type="text/javascript">
 				var x=15;
@@ -58,7 +64,7 @@
 							
 					
 <% 
-	String session_id = (String)session.getAttribute("session_id");
+	session_id = (String)session.getAttribute("session_id");
 	String year=request.getParameter("year");
 	String semester=request.getParameter("semester");
 	
@@ -86,7 +92,10 @@
 	
 		int all_credit = 0;
 		int count = 0;
-		while(rs.next()){
+		boolean found;
+		found = rs.next();
+		if(found){
+		do{
 			String sb_name = rs.getNString(2);
 			int sb_id = rs.getInt(3);
 			int cr_dv = rs.getInt(4);
@@ -134,7 +143,11 @@
 							
 						//
 			<%
-			}
+			}while(rs.next());}
+		else{%>
+			document.write("<td></td>");
+			<%
+		}
 		%>
 						
 						cellCount++;
@@ -146,7 +159,11 @@
 			</script>
 				
 		</div>
+		<%if (count == 0)  {%>
+		<div align="center" style="position: absolute; left:-4px; top:30%; width:100%; height:128%; background-color:white;">해당 기간의 시간표가 존재하지 않습니다.</div>
+		<%} %>
 		<div  align="center">
+		<br>
 		<p>
 		<table width="74%" bgcolor ="#FFFF99" border>
 		<tr>
@@ -160,7 +177,7 @@
 		<%
 	
 		stmt.close(); 
-	}catch(Exception e){
+	}catch(SQLException ex){
 		%>
 		<script>
 		alert("해당 기간의 시간표는 존재하지 않습니다");
