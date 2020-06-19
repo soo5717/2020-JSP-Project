@@ -16,16 +16,6 @@
 </head>
 <body>
 	<%
-	/*
-	//db 연결 정보
-	Connection conn = null;
-	Statement stmt = null;
-	PreparedStatement pstmt = null;
-	CallableStatement cstmt = null;
-	String sql = null; 
-	ResultSet resultSet = null;
-	
-	*/
 	//과목명, 과목코드, 분반, 주관학과, 교과구분, 강의사간, 이수학점, 담당교수
 	String subjectName = null, subjectId = null, couresDivision = null, departmentName = null, 
 		 subjectCredit = null, professorName = null, course_room = null;
@@ -178,21 +168,6 @@
 		<!-- 수강확정내역 -->
 	<%//수강확정 내역 조회 함수 : 최대 수강학점, 신청 학점 return 
 	
-	/*
-	sql = "{call Select2TimeTable(?, ?, ?, ?, ?, ?)}";
-	cstmt = conn.prepareCall(sql);
-	cstmt.setInt(1, Integer.parseInt(studentId));
-	cstmt.setInt(2, Integer.parseInt(searchYear));
-	cstmt.setInt(3, Integer.parseInt(searchSemester));
-	cstmt.registerOutParameter(4, java.sql.Types.INTEGER);
-	cstmt.registerOutParameter(5, java.sql.Types.INTEGER);
-	cstmt.registerOutParameter(6, java.sql.Types.INTEGER);
-	cstmt.execute();
-	
-	enrollCredit = cstmt.getInt(4);
-	maxCredit = cstmt.getInt(6);
-	remainCredit = maxCredit - enrollCredit;
-	*/
 	//stmt, conn 닫기
 	stmt.close();
 	cstmt.close();
