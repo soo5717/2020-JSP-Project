@@ -10,6 +10,7 @@
 	String userPassword=request.getParameter("userPassword");
 	
 	sql="select student_id from students where student_id='" + userID + "' and student_pw='" + userPassword + "'";
+	try{
 	stmt = conn.createStatement();
 	resultSet = stmt.executeQuery(sql);
 	
@@ -34,4 +35,12 @@
 	//stmt, conn 닫기
 	stmt.close(); 
 	conn.close(); 
+	}catch(Exception ex) {%>
+	<script>
+		alert("로그인 실패했습니다!");
+		history.back(); 
+	</script>
+	<%
+	}
+	
 %>

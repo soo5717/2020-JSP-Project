@@ -1,44 +1,83 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import= " java.sql .*"%>
-
-<!-- DBì—°ê²° -->
-<%@include file= "../utility/connection.jsp"%>
-
-<% 
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<%@ page import=" java.sql .*" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>ºñ¹Ğ¹øÈ£ ¼öÁ¤</title>
+</head>
+<body>
+	<% 
 	String userID=(String)session.getAttribute("session_id");
 	String userOldPassword=request.getParameter("userOldPassword");
 	String userPassword=request.getParameter("userPassword");
+	String userPasswordCheck=request.getParameter("userPasswordCheck");
+	
+	if(!(userPasswordCheck.equals(userPassword))){
+		%>
+		<script>
+		alert("½Å±Ô ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.");
+		history.back();
+		</script>
+		<%
+	}
+	else{
+	
+	String dbdriver = "oracle.jdbc.driver.OracleDriver";
+	String dburl = "jdbc:oracle:thin:@localhost:1521:orcl";
+	String user = "db1715884";// here
+	String passwd = "ss1"; // here
+	Connection myConn = null;
+	Statement stmt = null;
+	int rs=0;
+	String mySQL = null;
+	
+	try{
+		Class.forName(dbdriver);
+		myConn=DriverManager.getConnection(dburl, user, passwd);
+		stmt  = myConn.createStatement();
+	}catch(Exception e){
+		System.out.println("DB¿¬°á¿À·ù");
+	}
+
+	mySQL="update students set student_pw = '"+userPassword+"'where student_id='" + userID + "' and student_pw='" + userOldPassword + "'";
+	try{
+	rs = stmt.executeUpdate(mySQL);
+	System.out.println(mySQL);%>
+	<script>
+	alert("ºñ¹Ğ¹øÈ£ ¼öÁ¤ÀÌ ¿Ï·áµÆ½À´Ï´Ù.");
+	location.href = '../main.jsp';
+	</script>
+	<%
+	} catch(SQLException ex) {
+	   String sMessage;
+	   if (ex.getErrorCode() == 20002) {
+		   sMessage="¾ÏÈ£´Â 4ÀÚ¸® ÀÌ»óÀÌ¾î¾ß ÇÕ´Ï´Ù";
+	   }
+	  else if (ex.getErrorCode() == 20003) {
+		  sMessage="¾ÏÈ£¿¡ °ø¶õÀº ÀÔ·ÂµÇÁö ¾Ê½À´Ï´Ù.";
+	  }
+	  else {
+		  sMessage="Àá½Ã ÈÄ ´Ù½Ã ½ÃµµÇÏ½Ê½Ã¿À";
+	  }
+	   
+	   System.out.println("ºñ¹Ğ¹øÈ£ ¼öÁ¤ ½ÇÆĞ");
+	   %>
+	   <script>
+	    var msg = "<%=sMessage%>";
+		alert(msg);
+		history.back();
+		</script>
+		
+	   <%
+	}
+	stmt.close(); 
+	myConn.close(); 
+	}
+	%>
 	
 
-	sql="update students set student_pw = '"+userPassword+"'where student_id='" + userID + "' and student_pw='" + userOldPassword + "'";
-	try{ //ì—…ë°ì´íŠ¸ ì„±ê³µ
-		stmt = conn.createStatement();
-		int row = stmt.executeUpdate(sql);
-		
-		if(row != 0){
-%>
-			<script>
-				alert("ë¹„ë°€ë²ˆí˜¸ ìˆ˜ì •ì´ ì™„ë£ŒëìŠµë‹ˆë‹¤.");
-				location.href = '/DB-Project/main.jsp';
-			</script>	
-<%		}
-	} catch(SQLException ex) { //ì—…ë°ì´íŠ¸ ì‹¤íŒ¨
-		System.err.println("SQLException: " + ex.getMessage());
-		String sMessage;
-	   	if (ex.getErrorCode() == 20002)
-	   		sMessage="ì•”í˜¸ëŠ” 4ìë¦¬ ì´ìƒì´ì–´ì•¼ í•©ë‹ˆë‹¤";
-	  	else if (ex.getErrorCode() == 20003)
-		  	sMessage="ì•”í˜¸ì— ê³µë€ì€ ì…ë ¥ë˜ì§€ ì•ŠìŠµë‹ˆë‹¤.";
-	  	else
-		  	sMessage="ì ì‹œ í›„ ë‹¤ì‹œ ì‹œë„í•˜ì‹­ì‹œì˜¤";
-%>
-		<script>
-			alert(<%=sMessage%>);
-			location.href = '/DB-Project/main.jsp';
-		</script>
-<%
-	}
-	//stmt, conn ë‹«ê¸°
-	stmt.close(); 
-	conn.close(); 
-%>
+
+</body>
+</html>

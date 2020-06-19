@@ -36,7 +36,7 @@
 			<tr>
 				<td><div align= "center">신규 비밀번호 확인</div></td> 
 				<td><div align="center">
-					<input type="password" name="userPassword">
+					<input type="password" name="userPasswordCheck">
 				</div></td>
 			</tr>
 			<tr>
