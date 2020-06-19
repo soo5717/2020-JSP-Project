@@ -4,7 +4,7 @@
 <!-- DB연결 -->
 <%@include file= "../utility/connection.jsp"%>
 
-<!-- 수강취소 이벤트 -->
+<!-- 수강취소 검증 -->
 <%
 	String subjectId = request.getParameter("subjectId");
 	sql = "delete from enroll where student_id=? and subject_id=?";

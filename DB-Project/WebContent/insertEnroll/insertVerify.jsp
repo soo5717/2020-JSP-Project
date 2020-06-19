@@ -4,7 +4,7 @@
 <!-- DB연결 -->
 <%@include file= "../utility/connection.jsp"%>
 
-<!-- 수강신청 이벤트 -->
+<!-- 수강신청 검증 -->
 <%
 	String subjectId = request.getParameter("subjectId");
 	String couresDivision = request.getParameter("couresDivision");

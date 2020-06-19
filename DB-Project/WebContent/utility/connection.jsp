@@ -9,7 +9,7 @@
 	String user = "db1712357";
 	String password = "ss2";
 	
-	//DB연결
+	//변수 선언 : DB연결 관련
 	Connection conn = null;
 	Statement stmt = null;
 	PreparedStatement pstmt = null;
@@ -18,9 +18,10 @@
 	ResultSet resultSet = null;
 	
 	//변수 선언: 학번, 현재 년도, 현재 학기 
-	String studentId= (String) session.getAttribute("user");
+	String studentId= (String) session.getAttribute("session_id");
 	int nowYear = 0, nowSemester = 0;
 	
+	//DB연결 부분
 	try { //연결 성공
 		Class.forName(driver); 
 		conn = DriverManager.getConnection(url, user, password); 
@@ -43,7 +44,7 @@
 		cstmt.close();
 		
 		//test용 studnet_id
-		studentId = "1812357";
+		//studentId = "1812357";
 		
 	} catch(ClassNotFoundException e) { //드라이버 로딩 실패
 		System.out.println("jdbc driver 로딩 실패"); 

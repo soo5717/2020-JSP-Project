@@ -1,45 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import=" java.sql .*" %>
+    pageEncoding="UTF-8" import= " java.sql .*"%>
+    
+<!-- DB연결 -->
+<%@include file= "../utility/connection.jsp"%>
+
+<!-- 로그인 검증 -->
 <% 
-	
 	String userID=request.getParameter("userID");
 	String userPassword=request.getParameter("userPassword");
 	
-	String dbdriver = "oracle.jdbc.driver.OracleDriver";
-	String dburl = "jdbc:oracle:thin:@localhost:1521:orcl";
-	String user = "db1715884";// here
-	String passwd = "ss1"; // here
-	Connection myConn = null;
-	Statement stmt = null;
-	ResultSet rs= null;
-	String mySQL = null;
+	sql="select student_id from students where student_id='" + userID + "' and student_pw='" + userPassword + "'";
+	stmt = conn.createStatement();
+	resultSet = stmt.executeQuery(sql);
 	
-	try{
-	Class.forName(dbdriver);
-	myConn=DriverManager.getConnection(dburl, user, passwd);
-	stmt  = myConn.createStatement();
-	}catch(Exception e){
-		System.out.println("DB연결오류");
-	}
-
-	mySQL="select student_id from students where student_id='" + userID + "' and student_pw='" + userPassword + "'";
-	rs = stmt.executeQuery(mySQL);
-	System.out.println(mySQL);
-	
-	
-	
-	if (rs.next()){
-		String session_id = rs.getString("student_id");
+	if(resultSet.next()){
+		//세션에 학번 저장
+		String session_id = resultSet.getString("student_id");
 		session.setAttribute("session_id", session_id );
-		response.sendRedirect("../main.jsp");
-		System.out.println("로그인 성공");
-	}
+		//System.out.println(session_id+" 로그인 성공");		
+%>
+	<script>
+		alert("로그인 성공했습니다!");
+		location.href="/DB-Project/main.jsp"; 
+	</script>
+<%	}
 	else{
-		response.sendRedirect("login.jsp");
-		System.out.println("로그인 실패");
-	}
-
+%>
+	<script>
+		alert("로그인 실패했습니다!");
+		location.href="login.jsp"; 
+	</script>
+<%	}
+	//stmt, conn 닫기
 	stmt.close(); 
-	myConn.close(); 
+	conn.close(); 
 %>

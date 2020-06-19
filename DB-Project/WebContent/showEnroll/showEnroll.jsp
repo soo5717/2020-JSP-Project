@@ -15,6 +15,8 @@
 
 </head>
 <body>
+
+	<!-- 변수 선언 -->
 	<%
 	//과목명, 과목코드, 분반, 주관학과, 교과구분, 강의사간, 이수학점, 담당교수
 	String subjectName = null, subjectId = null, couresDivision = null, departmentName = null, 
@@ -41,7 +43,7 @@
 	<%
 	//부서명
 		sql = "select s.student_name,d.department_name,s.student_semester,s.student_credit from students s, departments d where s.department_id=d.department_id AND s.student_id = "+ Integer.parseInt(studentId);
-		System.out.println(sql);
+		//System.out.println(sql);
 		stmt = conn.createStatement();
 		resultSet = stmt.executeQuery(sql);
 		if(resultSet.next()){
@@ -74,7 +76,7 @@
 	</div>
 
 		
-<!-- 학기별 수강 조회-->
+	<!-- 학기별 수강 조회-->
 	<div class="row">
 		<table width="90%" border = "1"  align="center" height="100%">
 			<form method="get" id="year_semester" action="showEnroll.jsp">

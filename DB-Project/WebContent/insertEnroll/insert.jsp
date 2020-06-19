@@ -13,6 +13,7 @@
 <%@include file= "../utility/connection.jsp"%>
 </head>
 <body>
+
 	<!-- 변수 선언 -->
 	<%
 		//과목명, 과목코드, 분반, 주관학과, 교과구분, 강의시간, 이수학점, 담당교수
@@ -46,7 +47,7 @@
 				break;
 			}
 		}
-		System.out.println(groupId);
+		//System.out.println(groupId);
 		
 	%>
 	

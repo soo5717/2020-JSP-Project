@@ -4,23 +4,47 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>수강신청 시스템 비밀번호 변경</title>
+<title>숙명여대 비밀번호 변경</title>
+<!-- CSS 스타일 -->
+<link rel="stylesheet" type="text/css" href = "../CSS/base.css">
+<!-- 상단 메뉴 -->
+<jsp:include page = "../top.jsp" flush="false"/>
 </head>
 <body>
-<%@include file="../top.jsp"%>
-
-
-	<div width="50%" height="30" align="center">
-	 <h2>비밀번호 수정</h2>
-	<table bgcolor ="#FFFF99" border>
-	<form method="post" action="update_verify.jsp"><!-- action 파일은 DB수정하는 기능 해야 함 -->
-	<tr><td><div align="center"><input type="text" name="userOldPassword" placeholder="기존 비밀번호"></div></td></tr>
-	<tr><td><div align="center"><input type="password" name="userPassword" placeholder="신규 비밀번호"></div></td></tr>
-	<tr><td><div align="center"><input type="password" name="userPassword" placeholder="신규 비밀번호 확인"></div></td></tr>
-	<tr><td><div align="center"><INPUT TYPE="SUBMIT" NAME="checkPwd" VALUE=" 확인 " style="background-color:white;"></div></td></tr> 
-	</form>
+	
+	<!-- 안내 멘트 -->
+	<br><br><br>
+	<table width= "50%" align="center" bgcolor ="#FFFF99" border> 
+		<tr> <td><div align= "center">비밀번호를 입력해주세요</div></td> 
 	</table>
-	</div>
-
+	
+	<!-- 비밀번호 수정 -->
+	<table width= "50%" align="center" border> 
+		<form method="post" action="update_verify.jsp">
+			<tr>
+				<td><div align= "center">기존 비밀번호</div></td> 
+				<td><div align="center">
+					<input type="text" name="userOldPassword">
+				</div></td>
+			</tr>
+			<tr>
+				<td><div align= "center">신규 비밀번호</div></td> 
+				<td><div align="center">
+					<input type="password" name="userPassword">
+				</div></td>
+			</tr>
+			<tr>
+				<td><div align= "center">신규 비밀번호 확인</div></td> 
+				<td><div align="center">
+					<input type="password" name="userPassword">
+				</div></td>
+			</tr>
+			<tr>
+				<td colspan= 2><div align="center"> 
+					<input type="SUBMIT" name="checkPwd" value=" 확인 " style="background-color:white;">
+					<input type= "RESET" value=" 취소 " style="background-color:white;"> 
+			</tr> 
+		</form>
+	</table>
 </body>
 </html>
