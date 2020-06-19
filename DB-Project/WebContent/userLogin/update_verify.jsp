@@ -12,6 +12,18 @@
 	String userID=(String)session.getAttribute("session_id");
 	String userOldPassword=request.getParameter("userOldPassword");
 	String userPassword=request.getParameter("userPassword");
+	String userPasswordCheck=request.getParameter("userPasswordCheck");
+	
+	if(!(userPasswordCheck.equals(userPassword))){
+		%>
+		<script>
+		alert("신규 비밀번호가 일치하지 않습니다.");
+		history.back();
+		</script>
+		<%
+		//response.sendRedirect("../.jsp");
+	}
+	else{
 	
 	String dbdriver = "oracle.jdbc.driver.OracleDriver";
 	String dburl = "jdbc:oracle:thin:@localhost:1521:orcl";
@@ -36,8 +48,8 @@
 	System.out.println(mySQL);%>
 	<script>
 	alert("비밀번호 수정이 완료됐습니다.");
+	location.href = '../main.jsp';
 	</script>
-	
 	<%
 	} catch(SQLException ex) {
 	   String sMessage;
@@ -56,13 +68,14 @@
 	   <script>
 	    var msg = "<%=sMessage%>";
 		alert(msg);
-		location.href = '../main.jsp';
+		history.back();
 		</script>
 		
 	   <%
 	}
 	stmt.close(); 
 	myConn.close(); 
+	}
 	%>
 	
 

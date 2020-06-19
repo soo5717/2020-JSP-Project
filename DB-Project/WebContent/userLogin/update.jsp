@@ -16,7 +16,7 @@
 	<form method="post" action="update_verify.jsp"><!-- action 파일은 DB수정하는 기능 해야 함 -->
 	<tr><td><div align="center"><input type="text" name="userOldPassword" placeholder="기존 비밀번호"></div></td></tr>
 	<tr><td><div align="center"><input type="password" name="userPassword" placeholder="신규 비밀번호"></div></td></tr>
-	<tr><td><div align="center"><input type="password" name="userPassword" placeholder="신규 비밀번호 확인"></div></td></tr>
+	<tr><td><div align="center"><input type="password" name="userPasswordCheck" placeholder="신규 비밀번호 확인"></div></td></tr>
 	<tr><td><div align="center"><INPUT TYPE="SUBMIT" NAME="checkPwd" VALUE=" 확인 " style="background-color:white;"></div></td></tr> 
 	</form>
 	</table>
