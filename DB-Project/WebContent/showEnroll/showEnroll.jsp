@@ -173,13 +173,9 @@
 	cstmt.close();
 	conn.close();
 	%>
-	<jsp:include page = "showCreditEnroll.jsp">
-		<jsp:param value="<%=selectedYear%>" name="selectedYear"/>
-		<jsp:param value="<%=selectedSemester%>" name="selectedSemester"/>
-	</jsp:include>	
-<%	
-
-%>
+	
+	<!-- 수강확정내역 -->
+	<jsp:include page = "../utility/showCredit.jsp" flush="false"/>
 </body>
 </html>
 
