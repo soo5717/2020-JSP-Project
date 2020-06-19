@@ -126,7 +126,7 @@
 			%>
 		</table>
 	</div><br><br>
-
+ 
 	<!-- 수강확정내역 -->
 	<jsp:include page = "../utility/showCredit.jsp" flush="false"/>
 </body>
