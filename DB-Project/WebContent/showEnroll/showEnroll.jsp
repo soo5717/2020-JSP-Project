@@ -56,18 +56,18 @@
 	<div class="container" id="fixedfooter">
 	<table width="90%" border = "1"  align="center" height="100%">
 		<thead>
-			<tr style="background-color: #ffff8e; text-align: center;">학적 정보</tr>
+			<tr style="background-color: #ffff8e; text-align: center;"><th>학적 정보</th></tr>
 		</thead><br>
 		<tbody>
 				<tr>
-				<td>학번 </td><td><%=studentId%></td>
-				<td>이름</td><td><%=studentName%></td>
-				<td>소속</td><td><%=departmentName%></td>
+				<td>학번 </td><td>&nbsp;<%=studentId%></td>
+				<td>이름</td><td>&nbsp;<%=studentName%></td>
+				<td>소속</td><td>&nbsp;<%=departmentName%></td>
 				</tr> 
 			 	<tr>
-			 	<td> 학년 </td><td><%=studentGrade%></td>
-				<td>학기</td><td><%=studentSemester%></td>
-				<td>수강가능학점</td><td><%=studentCredit%></td>
+			 	<td> 학년 </td><td>&nbsp;<%=studentGrade%></td>
+				<td>학기</td><td>&nbsp;<%=studentSemester%></td>
+				<td>수강가능학점</td><td>&nbsp;<%=studentCredit%></td>
 			 	</tr> 		
 			</tbody>
 		</table>	
@@ -79,14 +79,14 @@
 		<table width="90%" border = "1"  align="center" height="100%">
 			<form method="get" id="year_semester" action="showEnroll.jsp">
 			<thead>
-				<tr style="background-color: #ffff8e; text-align: center;">학기별 수강  조회</tr>
+				<tr style="background-color: #ffff8e; text-align: center;"><th>학기별 수강  조회</th></tr>
 			</thead>
 			<br>
 			<tbody>
 				<tr>
 				<td> 학년도 </td>
-				<td>
-					<select name="selectedYear" id="selectedYear" >
+				<td align="center">
+					<select name="selectedYear" id="selectedYear">
 					<option value=<%=selectedYear%>><%=selectedYear%>학년도</option>
 					<option value=2020>2020학년도</option>
 					<option value=2019>2019학년도</option>
@@ -95,8 +95,8 @@
 					</select>
 				</td>
 				<td> 학기 </td>
-				<td>
-					<select name="selectedSemester" id="selectedSemester" >
+				<td align="center">
+					<select name="selectedSemester" id="selectedSemester">
 					<option value=<%=selectedSemester%>><%=selectedSemester%>학기</option>
 					<option value=1>1학기</option>
 					<option value=2>2학기</option>
