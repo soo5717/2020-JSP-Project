@@ -11,7 +11,7 @@
 <!-- 상단 메뉴-->
 <%@include file="../top.jsp"%>
 <!-- DB연결 -->
-<%@include file= "../deleteEnroll/connection.jsp"%>
+<%@include file= "../utility/connection.jsp"%>
 
 </head>
 <body>
