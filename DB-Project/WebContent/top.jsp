@@ -27,7 +27,7 @@
 		<td align= "center"><b><a href ="/DB-Project/insertEnroll/insert.jsp">수강신청</a></b></td> 
 		<td align= "center"><b><a href ="/DB-Project/deleteEnroll/delete.jsp">수강취소</a></b></td> 
 		<td align= "center"><b><a href ="/DB-Project/showEnroll/showEnroll.jsp">수강조회</a></b></td> 
-		<td align= "center"><b><a href ="/DB-Project/timetable/timetable.jsp">시간표</a></b></td>
+		<td align= "center"><b><a href ="/DB-Project/timetable/timetable_verify.jsp">시간표</a></b></td>
 		<% if(up != null){ %>
 			<td align= "center"><b><%=up%></b></td>
 		<%} %>
