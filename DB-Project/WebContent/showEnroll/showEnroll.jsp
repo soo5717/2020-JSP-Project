@@ -28,7 +28,7 @@
 	//학생 학기, 학년, 수강가능 학점
 	int studentSemester= 0,studentGrade= 0,studentCredit= 0;
 	
-		
+	
 	String selectedYear = request.getParameter("selectedYear");
 	String selectedSemester = request.getParameter("selectedSemester");
 	if(selectedYear == null ) selectedYear = Integer.toString(nowYear);
