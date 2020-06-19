@@ -8,12 +8,11 @@
 <title>조회 시간표</title>
 </head>
 <body>
-
+<%@include file= "../utility/connection.jsp"%>
 <jsp:include page="timetable.jsp" flush="false"/>
 <div style="position=relative;">
 <%
-	String session_id = (String)session.getAttribute("session_id");
-	if (session_id == null) {
+	if (studentId == null) {
 		response.sendRedirect("../main.jsp");
 	}
 %>		
@@ -64,50 +63,42 @@
 							
 					
 <% 
-	session_id = (String)session.getAttribute("session_id");
 	String year=request.getParameter("year");
 	String semester=request.getParameter("semester");
 	
-	String dbdriver = "oracle.jdbc.driver.OracleDriver";
-	String dburl = "jdbc:oracle:thin:@localhost:1521:orcl";
-	String user = "db1715884";// here
-	String passwd = "ss1"; //here
-	Connection myConn = null;
-	Statement stmt = null;
-	ResultSet rs= null;
 	String mySQL = null;
 	
 	try{
-	Class.forName(dbdriver);
-	myConn=DriverManager.getConnection(dburl, user, passwd);
-	stmt  = myConn.createStatement();
+	//Class.forName(driver);
+	//conn=DriverManager.getConnection(url, user, passwd);
+	stmt  = conn.createStatement();
 	}catch(Exception e){
 		System.out.println("DB연결오류");
 	}
-	System.out.println(session_id+ year+ semester);
-	mySQL="select * from timetables where student_id='" + session_id+"' and enroll_year = '"+year +"' and enroll_semester='"+semester+"'";
+	System.out.println(studentId+ year+ semester);
+	mySQL="select * from timetables where student_id='" + studentId+"' and enroll_year = '"+year +"' and enroll_semester='"+semester+"'";
 	try{
-		rs = stmt.executeQuery(mySQL);
+		resultSet = stmt.executeQuery(mySQL);
 		System.out.println(mySQL);
 	
 		int all_credit = 0;
 		int count = 0;
 		boolean found;
-		found = rs.next();
+		found = resultSet.next();
 		if(found){
 		do{
-			String sb_name = rs.getNString(2);
-			int sb_id = rs.getInt(3);
-			int cr_dv = rs.getInt(4);
-			String pr_name = rs.getString(5);
-			String room_name = rs.getString(6);
-			int start1 = rs.getInt(7);
-			int start2 = rs.getInt(8);
-			int end1 = rs.getInt(9);
-			int end2 = rs.getInt(10);
-			int dum_year = rs.getInt(11);
-			int dum_semester = rs.getInt(12);
-			int credit = rs.getInt(13);
+			String sb_name = resultSet.getNString(2);
+			int sb_id = resultSet.getInt(3);
+			int cr_dv = resultSet.getInt(4);
+			String pr_name = resultSet.getString(5);
+			String room_name = resultSet.getString(6);
+			int start1 = resultSet.getInt(7);
+			int start2 = resultSet.getInt(8);
+			int end1 = resultSet.getInt(9);
+			int end2 = resultSet.getInt(10);
+			int dum_year = resultSet.getInt(11);
+			int dum_semester = resultSet.getInt(12);
+			int credit = resultSet.getInt(13);
 			count++;
 			all_credit += credit;
 			System.out.println(end1);
@@ -143,7 +134,7 @@
 							
 						//
 			<%
-			}while(rs.next());}
+			}while(resultSet.next());}
 		else{%>
 			document.write("<td></td>");
 			<%
@@ -184,7 +175,7 @@
 		</script>
 		<%
 	}
-	myConn.close(); 
+	conn.close(); 
 %>
 
 </body>
