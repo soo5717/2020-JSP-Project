@@ -160,7 +160,7 @@
 				
 		</div>
 		<%if (count == 0)  {%>
-		<div align="center" style="position: absolute; left:-4px; top:30%; width:100%; height:128%; background-color:white;">해당 기간의 시간표가 존재하지 않습니다.</div>
+		<div align="center" style="position: absolute; left:-4px; top:32%; width:100%; height:128%; background-color:white;">해당 기간의 시간표가 존재하지 않습니다.</div>
 		<%} %>
 		<div  align="center">
 		<br>
