@@ -25,7 +25,7 @@
 %>
 			<script>
 			alert("수강 취소 되었습니다!"); 
-			history.back(); 
+			location.href="/DB-Project/deleteEnroll/delete.jsp";
 			</script>
 <%	
 		}

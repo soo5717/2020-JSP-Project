@@ -28,7 +28,7 @@
 %>
 		<script>
 		alert("<%=result%>"); 
-		history.back(); 
+		location.href="/DB-Project/insertEnroll/insert.jsp";
 		</script>
 <%	
 	} catch(SQLException ex) {
