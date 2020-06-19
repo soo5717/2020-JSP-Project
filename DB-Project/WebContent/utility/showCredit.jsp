@@ -8,6 +8,15 @@
 
 <!-- 수강확정내역 -->
 <% 
+	//showEnroll에서 선택 년도, 학기 가져옴
+	String sYear = request.getParameter("selectedYear");
+	String sSemester = request.getParameter("selectedSemester");
+	
+	if(sYear==null || sSemester==null){
+		sYear = Integer.toString(nowYear);
+		sSemester = Integer.toString(nowSemester);
+	}
+
 	//잔여학점, 수강학점, 최대 수강학점
 	int remainCredit = 0, enrollCredit = 0, maxCredit = 0;
 
@@ -15,8 +24,8 @@
 	sql = "{call Select2TimeTable(?, ?, ?, ?, ?, ?)}";
 	cstmt = conn.prepareCall(sql);
 	cstmt.setInt(1, Integer.parseInt(studentId));
-	cstmt.setInt(2, nowYear);
-	cstmt.setInt(3, nowSemester);
+	cstmt.setInt(2, Integer.parseInt(sYear));
+	cstmt.setInt(3, Integer.parseInt(sSemester));
 	cstmt.registerOutParameter(4, java.sql.Types.INTEGER);
 	cstmt.registerOutParameter(5, java.sql.Types.INTEGER);
 	cstmt.registerOutParameter(6, java.sql.Types.INTEGER);
