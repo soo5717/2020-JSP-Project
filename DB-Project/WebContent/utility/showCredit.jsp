@@ -22,22 +22,27 @@
 
 	//수강확정 내역 조회  프로시저 : 최대 수강학점, 신청 학점 return 
 	sql = "{call Select2TimeTable(?, ?, ?, ?, ?, ?)}";
-	cstmt = conn.prepareCall(sql);
-	cstmt.setInt(1, Integer.parseInt(studentId));
-	cstmt.setInt(2, Integer.parseInt(sYear));
-	cstmt.setInt(3, Integer.parseInt(sSemester));
-	cstmt.registerOutParameter(4, java.sql.Types.INTEGER);
-	cstmt.registerOutParameter(5, java.sql.Types.INTEGER);
-	cstmt.registerOutParameter(6, java.sql.Types.INTEGER);
-	cstmt.execute();
-	
-	enrollCredit = cstmt.getInt(4);
-	maxCredit = cstmt.getInt(6);
-	remainCredit = maxCredit - enrollCredit;
-	
-	//cstmt, conn 닫기
-	cstmt.close();
-	conn.close();
+	try{
+		cstmt = conn.prepareCall(sql);
+		cstmt.setInt(1, Integer.parseInt(studentId));
+		cstmt.setInt(2, Integer.parseInt(sYear));
+		cstmt.setInt(3, Integer.parseInt(sSemester));
+		cstmt.registerOutParameter(4, java.sql.Types.INTEGER);
+		cstmt.registerOutParameter(5, java.sql.Types.INTEGER);
+		cstmt.registerOutParameter(6, java.sql.Types.INTEGER);
+		cstmt.execute();
+		
+		enrollCredit = cstmt.getInt(4);
+		maxCredit = cstmt.getInt(6);
+		remainCredit = maxCredit - enrollCredit;
+	} catch(SQLException ex) {
+		System.err.println("SQLException: " + ex.getMessage());
+	} finally{
+		if(cstmt != null)
+			cstmt.close();
+		if(conn != null)
+			conn.close();						
+	}
 %>
 
 <div class="bottom" id="fixedfooter">

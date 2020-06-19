@@ -6,17 +6,21 @@
 <head>
 <meta charset="UTF-8">
 <title>조회 시간표</title>
+<!-- DB연결 -->
+<%@include file= "../utility/connection.jsp"%>
+<!-- 시간표 상단 -->
+<jsp:include page="timetable.jsp" flush="false"/>
 </head>
 <body>
-<%@include file= "../utility/connection.jsp"%>
-<jsp:include page="timetable.jsp" flush="false"/>
+	<!-- 로그인 안되어 있을 경우 -->
+	<%	if(studentId == null){
+			response.sendRedirect("/DB-Project/main.jsp");
+			return; 
+		}
+	%>	
+
+
 <div style="position=relative;">
-<%
-	if (studentId == null) {
-		response.sendRedirect("../main.jsp");
-	}
-%>		
-			
 			<script type="text/javascript">
 				var x=15;
 				var y=6;
@@ -75,7 +79,7 @@
 	}catch(Exception e){
 		System.out.println("DB연결오류");
 	}
-	System.out.println(studentId+ year+ semester);
+	//System.out.println(studentId+ year+ semester);
 	mySQL="select * from timetables where student_id='" + studentId+"' and enroll_year = '"+year +"' and enroll_semester='"+semester+"'";
 	try{
 		resultSet = stmt.executeQuery(mySQL);

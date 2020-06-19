@@ -43,9 +43,6 @@
 		
 		cstmt.close();
 		
-		//test용 studnet_id
-		//studentId = "1812357";
-		
 	} catch(ClassNotFoundException e) { //드라이버 로딩 실패
 		System.out.println("jdbc driver 로딩 실패"); 
 	} catch(SQLException e) { //db연결 실패
