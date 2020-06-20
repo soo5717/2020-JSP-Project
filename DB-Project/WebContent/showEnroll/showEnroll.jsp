@@ -60,15 +60,9 @@
 				studentGrade = studentSemester / 2;
 				studentCredit = resultSet.getInt(4);
 			}
-		} catch(SQLException ex) {
-			System.err.println("SQLException: " + ex.getMessage());
-		}
-		
-		
-		sql = "select s.student_address from students s where s.student_id = "+ Integer.parseInt(studentId);
-		try{
+			sql = "select s.student_address from students s where s.student_id = "+ Integer.parseInt(studentId);
+	
 			
-			stmt = conn.createStatement();
 			resultSet = stmt.executeQuery(sql);
 			if(resultSet.next()){
 				studentAddress = resultSet.getString(1);
