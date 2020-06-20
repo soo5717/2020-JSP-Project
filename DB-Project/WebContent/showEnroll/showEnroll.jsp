@@ -31,8 +31,8 @@
 	String course_time= null;
 	//잔여학점, 수강학점, 최대 수강학점
 	int remainCredit = 0, enrollCredit = 0, maxCredit = 0;
-	//학생 이름,학생부서이름
-	String studentName= null,studentDepName= null;
+	//학생 이름,학생부서이름주,소
+	String studentName= null,studentDepName= null,studentAddress = null;
 	//학생 학기, 학년, 수강가능 학점
 	int studentSemester= 0,studentGrade= 0,studentCredit= 0;
 	
@@ -49,6 +49,7 @@
 	<%
 		sql = "select s.student_name,d.department_name,s.student_semester,s.student_credit from students s, departments d where s.department_id=d.department_id AND s.student_id = "+ Integer.parseInt(studentId);
 		try{
+			conn.setAutoCommit(false);
 			stmt = conn.createStatement();
 			resultSet = stmt.executeQuery(sql);
 			if(resultSet.next()){
@@ -58,6 +59,15 @@
 				studentSemester = resultSet.getInt(3);
 				studentGrade = studentSemester / 2;
 				studentCredit = resultSet.getInt(4);
+			}
+			sql = "select s.student_address from students s where s.student_id = "+ Integer.parseInt(studentId);
+	
+			
+			resultSet = stmt.executeQuery(sql);
+			if(resultSet.next()){
+				studentAddress = resultSet.getString(1);
+				if( resultSet.wasNull() ) studentAddress="";
+				
 			}
 		} catch(SQLException ex) {
 			System.err.println("SQLException: " + ex.getMessage());
@@ -78,7 +88,11 @@
 				 	<td> 학년 </td><td>&nbsp;<%=studentGrade%></td>
 					<td>학기</td><td>&nbsp;<%=studentSemester%></td>
 					<td>수강가능학점</td><td>&nbsp;<%=studentCredit%></td>
-			 	</tr> 		
+			 	</tr> 	
+			 	<tr>
+				 	<td> 주소 </td><td>&nbsp;<%=studentAddress%></td>
+
+			 	</tr> 	
 			</tbody>
 		</table>	
 	</div>
@@ -87,7 +101,7 @@
 	<!-- 학기별 수강 조회-->
 	<div class="row">
 		<table width="90%" border = "1"  align="center" height="100%">
-			<form method="get" id="year_semester" action="showEnroll.jsp">
+			<form method="post" id="year_semester" action="showEnroll.jsp">
 				<thead>
 					<tr style="background-color: #ffff8e; text-align: center;"><th>학기별 수강  조회</th></tr>
 				</thead><br>
@@ -156,9 +170,11 @@
 								</tr>
 					<%			}
 							}
+						conn.commit();
 					} catch(SQLException ex) {
 						System.err.println("SQLException: " + ex.getMessage());
 					} finally{
+						
 						if(stmt != null)
 							stmt.close();
 						if(conn != null)
