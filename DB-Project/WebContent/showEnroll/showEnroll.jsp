@@ -49,6 +49,7 @@
 	<%
 		sql = "select s.student_name,d.department_name,s.student_semester,s.student_credit from students s, departments d where s.department_id=d.department_id AND s.student_id = "+ Integer.parseInt(studentId);
 		try{
+			conn.setAutoCommit(false);
 			stmt = conn.createStatement();
 			resultSet = stmt.executeQuery(sql);
 			if(resultSet.next()){
@@ -156,6 +157,7 @@
 								</tr>
 					<%			}
 							}
+							conn.commit();
 					} catch(SQLException ex) {
 						System.err.println("SQLException: " + ex.getMessage());
 					} finally{
