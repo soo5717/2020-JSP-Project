@@ -95,6 +95,7 @@
 				timetable[i-9][day1-2] += table1;
 				System.out.println("i:"+i);
 				}
+			
 			//twice a week
 			int day2 = 0;
 			int s_hour2 = 0;
