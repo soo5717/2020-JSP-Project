@@ -81,10 +81,20 @@
 			int dum_semester = resultSet.getInt(12);
 			int credit = resultSet.getInt(13);
 			
-			table1 = sb_name+"\n"+sb_id +"-"+cr_dv+"\n"+pr_name+"\n"+room_name+"\n"+(start1%10000)/100+":"+(start1%100)+"~"+(end1%10000)/100+":"+(end1%100);
+			if(end1%100 == 0){
+				table1 = sb_name+"\n"+sb_id +"-"+cr_dv+"\n"+pr_name+"\n"+room_name+"\n"+(start1%10000)/100+":"+(start1%100)+"~"+(end1%10000)/100+":00";
+			}
+			else{
+				table1 = sb_name+"\n"+sb_id +"-"+cr_dv+"\n"+pr_name+"\n"+room_name+"\n"+(start1%10000)/100+":"+(start1%100)+"~"+(end1%10000)/100+":"+(end1%100);
+			}
 			System.out.println("table1: "+table1);
 			if(start2 != 0){
-				table2 = sb_name+"\n"+sb_id +"-"+cr_dv+"\n"+pr_name+"\n"+room_name+"\n"+(start2%10000)/100+":"+(start2%100)+"~"+(end2%10000)/100+":"+(end2%100);
+				if(end2%100 == 0){
+					table2 = sb_name+"\n"+sb_id +"-"+cr_dv+"\n"+pr_name+"\n"+room_name+"\n"+(start2%10000)/100+":"+(start2%100)+"~"+(end2%10000)/100+":00";
+				}
+				else{
+					table2 = sb_name+"\n"+sb_id +"-"+cr_dv+"\n"+pr_name+"\n"+room_name+"\n"+(start2%10000)/100+":"+(start2%100)+"~"+(end2%10000)/100+":"+(end2%100);
+				}
 				System.out.println("table2: "+table2);
 			}
 			//once a week
