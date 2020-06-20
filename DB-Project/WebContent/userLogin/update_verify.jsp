@@ -9,7 +9,6 @@
 	String userOldPassword=request.getParameter("userOldPassword");
 	String userPassword=request.getParameter("userPassword");
 	String userPasswordCheck=request.getParameter("userPasswordCheck");
-	
 	if(!(userPasswordCheck.equals(userPassword))){
 %>
 		<script>
@@ -19,17 +18,29 @@
 <%
 	}
 	else{
-		sql="update students set student_pw = '"+userPassword+"'where student_id='" + studentId + "' and student_pw='" + userOldPassword + "'";
+		sql = "select student_pw from students where student_id='"+studentId+"'";
 		try{
 			stmt  = conn.createStatement();
-			int row = stmt.executeUpdate(sql);
-			System.out.println(sql);
-%>
+			resultSet = stmt.executeQuery(sql);
+			resultSet.next();
+			String pwd = resultSet.getString(1);
+			if(!pwd.equals(userOldPassword) ){%>
+				<script>
+				alert("기존 비밀번호와 일치하지 않습니다.");
+				history.back();
+				</script>
+			<%}
+			else{
+				sql="update students set student_pw = '"+userPassword+"'where student_id='" + studentId + "' and student_pw='" + userOldPassword + "'";
+				int row = stmt.executeUpdate(sql);
+				System.out.println(sql);%>
+
 			<script>
 			alert("비밀번호 수정이 완료됐습니다.");
 			location.href = '/DB-Project/main.jsp';
 			</script>
-<%
+			<%}%>
+<%			
 		} catch(SQLException ex) {
 			String sMessage;
 		   	if (ex.getErrorCode() == 20002) 
@@ -44,7 +55,7 @@
 			alert("<%=sMessage%>");
 			history.back();
 			</script>
-<%
+<%			
 		} finally {
 			if(stmt != null)
 				stmt.close(); 
