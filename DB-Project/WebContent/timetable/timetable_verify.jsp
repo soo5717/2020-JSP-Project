@@ -43,7 +43,7 @@
 	mySQL="select * from timetables where student_id='" + studentId+"' and enroll_year = '"+year +"' and enroll_semester='"+semester+"'";
 	try{
 		resultSet = stmt.executeQuery(mySQL);
-		System.out.println(mySQL);
+		//System.out.println(mySQL);
 
 		int all_credit = 0;
 		int count = 0;
@@ -53,7 +53,7 @@
 		<br>
 		<br> 
 		<div style="position:relative">
-		<table width="80%" align="center" font-family="sans-serif" border>
+		<table width="80%" align="center" border>
 		<tr>
 			<td bgcolor ="#FFFF99">시간</td>
 			<td bgcolor ="#FFFF99">월요일</td>
@@ -87,7 +87,7 @@
 			else{
 				table1 = sb_name+"\n"+sb_id +"-"+cr_dv+"\n"+pr_name+"\n"+room_name+"\n"+(start1%10000)/100+":"+(start1%100)+"~"+(end1%10000)/100+":"+(end1%100);
 			}
-			System.out.println("table1: "+table1);
+			//System.out.println("table1: "+table1);
 			if(start2 != 0){
 				if(end2%100 == 0){
 					table2 = sb_name+"\n"+sb_id +"-"+cr_dv+"\n"+pr_name+"\n"+room_name+"\n"+(start2%10000)/100+":"+(start2%100)+"~"+(end2%10000)/100+":00";
@@ -95,7 +95,7 @@
 				else{
 					table2 = sb_name+"\n"+sb_id +"-"+cr_dv+"\n"+pr_name+"\n"+room_name+"\n"+(start2%10000)/100+":"+(start2%100)+"~"+(end2%10000)/100+":"+(end2%100);
 				}
-				System.out.println("table2: "+table2);
+				//System.out.println("table2: "+table2);
 			}
 			//once a week
 			int day1 =start1/10000;
