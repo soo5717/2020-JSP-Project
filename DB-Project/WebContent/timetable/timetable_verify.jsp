@@ -6,6 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>조회 시간표</title>
+<!-- CSS 스타일 -->
+<link rel="stylesheet" type="text/css" href = "../CSS/base.css">
 <!-- DB연결 -->
 <%@include file= "../utility/connection.jsp"%>
 <!-- 시간표 상단 -->
@@ -13,84 +15,59 @@
 </head>
 <body>
 	<!-- 로그인 안되어 있을 경우 -->
-	<%	if(studentId == null){
-			response.sendRedirect("/DB-Project/main.jsp");
-			return; 
-		}
-	%>	
-
-
-<div style="position=relative;">
-			<script type="text/javascript">
-				var x=15;
-				var y=6;
-				var timeNum = 1;
-				var cellCount = 2;
-				var tmpNum = 0;
-				var start1 = 0;
-				var end1 = 0;
-				var start2 = 0;
-				var end2 = 0;
-				var tmp_start1= 0;
-				var tmp_end1 = 0;
-				var tmp_start2 = 0;
-				var tmp_end2 = 0;
-				var sub_str;
-				
-				
-				var sb_name;
-				var sb_id;
-				var cr_dv;
-				var pr_name;
-				var room_name;
-				document.write("<br><h4 align=\"left\">결과 검색</h4>");
-				document.write("<table width=\"75%\" align=\"center\" border>");
-				document.write("<tr>");
-				document.write("<th bgcolor =\"#FFFF99\">시간</th>");
-				document.write("<th bgcolor =\"#FFFF99\">월요일</th>");
-				document.write("<th bgcolor =\"#FFFF99\">화요일</th>");
-				document.write("<th bgcolor =\"#FFFF99\">수요일</th>");
-				document.write("<th bgcolor =\"#FFFF99\">목요일</th>");
-				document.write("<th bgcolor =\"#FFFF99\">금요일</th>");
-				document.write("</tr>");
-				for(i=0;i<x;i++)
-				{
-					document.write("<tr>");
-					for(j=0;j<y;j++)
-					{
-						if(j % 6 == 0) {
-							document.write("<td>"+timeNum+"</td>");
-							timeNum++;
-						}
-						else {
-						
-							
-					
+<%	if(studentId == null){
+		response.sendRedirect("/DB-Project/main.jsp");
+		return; 
+	}
+%>	
+											
 <% 
 	String year=request.getParameter("year");
 	String semester=request.getParameter("semester");
-	
 	String mySQL = null;
 	
 	try{
-	//Class.forName(driver);
-	//conn=DriverManager.getConnection(url, user, passwd);
-	stmt  = conn.createStatement();
+		stmt  = conn.createStatement();
 	}catch(Exception e){
 		System.out.println("DB연결오류");
 	}
-	//System.out.println(studentId+ year+ semester);
+	
+	String[][] timetable = new String[13][5];
+	for(int i = 0; i < 13; i++){
+		for(int j = 0; j < 5; j++){
+			timetable[i][j] = "";
+		}
+	}
+	
+	
 	mySQL="select * from timetables where student_id='" + studentId+"' and enroll_year = '"+year +"' and enroll_semester='"+semester+"'";
 	try{
 		resultSet = stmt.executeQuery(mySQL);
 		System.out.println(mySQL);
-	
+
 		int all_credit = 0;
 		int count = 0;
-		boolean found;
-		found = resultSet.next();
-		if(found){
-		do{
+		
+		%>
+		<br>
+		<br>
+		<br> 
+		<div style="position:relative">
+		<table width="80%" align="center" font-family="sans-serif" border>
+		<tr>
+			<td bgcolor ="#FFFF99">시간</td>
+			<td bgcolor ="#FFFF99">월요일</td>
+			<td bgcolor ="#FFFF99">화요일</td>
+			<td bgcolor ="#FFFF99">수요일</td>
+			<td bgcolor ="#FFFF99">목요일</td>
+			<td bgcolor ="#FFFF99">금요일</td>
+		</tr>
+		
+		<%
+		while(resultSet.next()){
+			String table1 = "";
+			String table2 = "";
+			
 			String sb_name = resultSet.getNString(2);
 			int sb_id = resultSet.getInt(3);
 			int cr_dv = resultSet.getInt(4);
@@ -103,62 +80,65 @@
 			int dum_year = resultSet.getInt(11);
 			int dum_semester = resultSet.getInt(12);
 			int credit = resultSet.getInt(13);
+			
+			table1 = sb_name+"\n"+sb_id +"-"+cr_dv+"\n"+pr_name+"\n"+room_name+"\n"+(start1%10000)/100+":"+(start1%100)+"~"+(end1%10000)/100+":"+(end1%100);
+			System.out.println("table1: "+table1);
+			if(start2 != 0){
+				table2 = sb_name+"\n"+sb_id +"-"+cr_dv+"\n"+pr_name+"\n"+room_name+"\n"+(start2%10000)/100+":"+(start2%100)+"~"+(end2%10000)/100+":"+(end2%100);
+				System.out.println("table2: "+table2);
+			}
+			//once a week
+			int day1 =start1/10000;
+			int s_hour1 = (start1%10000)/100;
+			int e_hour1 = (end1%10000)/100;
+			for(int i = s_hour1; i <= e_hour1; i++){ 
+				timetable[i-9][day1-2] += table1;
+				System.out.println("i:"+i);
+				}
+			//twice a week
+			int day2 = 0;
+			int s_hour2 = 0;
+			int e_hour2 = 0;
+			if(start2 != 0){
+				day2 = start2/10000;
+				s_hour2 = (start2%10000)/100;
+				e_hour2 = (end2%10000)/100;
+				for(int i = s_hour2; i <= e_hour2; i++){ timetable[i-9][day2-2] += table2;}
+			}
+			
 			count++;
 			all_credit += credit;
-			System.out.println(end1);
-			%>
-			
-			start1 = <%=start1%>;
-			end1 = <%=end1%>;
-			start2 = <%=start2%>;
-			end2 = <%=end2%>;
-			
-			sb_name = "<%=sb_name%>";
-			sb_id = <%=sb_id%>;
-			cr_dv = <%=cr_dv%>;
-			pr_name = "<%=pr_name%>";
-			room_name  = "<%=room_name%>";
-			sub_str = sb_name + "<br>"+ sb_id+"-"+cr_dv+"<br>"+pr_name+"<br>"+room_name;
-			
-			tmp_start1 = parseInt((start1 % 10000)/100);
-			tmp_end1 = parseInt((end1 % 10000)/100);
-			if(start2 != 0) tmp_start2 = parseInt((start2 % 10000)/100);
-			if(end2 != 0) tmp_end2 = parseInt((end2 % 10000)/100);
-			
-							tmpNum = cellCount-(timeNum-2)*5;
-							if( (parseInt(start1 / 10000) == tmpNum) && (tmp_start1 <= timeNum+7) && (timeNum+7 <= tmp_end1) ){
-								document.write("<td>"+sub_str+"<br>"+tmp_start1+":"+(start1 % 100)+"<br>"+tmp_end1+":"+(end1 % 100)+"</td>");
-							}
-							else if(start2 != 0 && end2 != 0 && parseInt(start2 / 10000) == tmpNum && (tmp_start2 <= timeNum+7) && (timeNum+7 <= tmp_end2)){
-								document.write("<td>"+sub_str+"<br>"+tmp_start1+":"+(start2 % 100)+"<br>"+tmp_end1+":"+(end2 % 100)+"</td>");
-							}
-							else{
-								document.write("<td/></td>");
-								}
-							
-						//
-			<%
-			}while(resultSet.next());}
-		else{%>
-			document.write("<td></td>");
-			<%
-		}
+		}//end while
+		
+		//timetable draw//5 variables
+		for(int i = 0; i< 13; i++){
+			int teaching = i+1;
+			String d1 = timetable[i][0];
+			String d2 = timetable[i][1];
+			String d3 = timetable[i][2];
+			String d4 = timetable[i][3];
+			String d5 = timetable[i][4];
 		%>
-						
-						cellCount++;
-						}
-					}
-					document.write("</tr>");
-				}
-				document.write("</table>");
-			</script>
-				
-		</div>
+		<tr>
+			<td><%=teaching%></td>
+			<td><%=d1%></td>
+			<td><%=d2%></td>
+			<td><%=d3%></td>
+			<td><%=d4%></td>
+			<td><%=d5%></td>
+		</tr>
+		<%	
+		}//end for
+		%>
+		</table>		
+
 		<%if (count == 0)  {%>
-		<div align="center" style="position: absolute; left:-4px; top:32%; width:100%; height:128%; background-color:white;">해당 기간의 시간표가 존재하지 않습니다.</div>
+			<div align="center" style="position: absolute; left:0px; top:-24px; width:100%; height:128%; background-color:white;">해당 기간의 시간표가 존재하지 않습니다.</div>
+			</div>
 		<%} %>
 		<div  align="center">
 		<br>
+		
 		<p>
 		<table width="74%" bgcolor ="#FFFF99" border>
 		<tr>
@@ -168,16 +148,12 @@
 		</table>
 		</p>
 		</div>
+		
 
 		<%
-	
 		stmt.close(); 
-	}catch(SQLException ex){
-		%>
-		<script>
-		alert("해당 기간의 시간표는 존재하지 않습니다");
-		</script>
-		<%
+		}catch(SQLException ex){
+		System.out.println("시간표 존재 하지 않음");	
 	}
 	conn.close(); 
 %>
