@@ -29,6 +29,14 @@
 			</script>
 <%	
 		}
+		else{
+%>
+			<script>
+			alert("수강 취소 실패했습니다!"); 
+			location.href="/DB-Project/deleteEnroll/delete.jsp";
+			</script>
+<%
+		}
 	} catch(SQLException ex) {
 		System.err.println("SQLException: " + ex.getMessage());
 	} finally{
