@@ -101,9 +101,12 @@
 			int day1 =start1/10000;
 			int s_hour1 = (start1%10000)/100;
 			int e_hour1 = (end1%10000)/100;
+			//System.out.println("day1: "+day1);
+			//System.out.println("s_hour1: "+s_hour1);
+			//System.out.println("e_hour1: "+e_hour1);
 			for(int i = s_hour1; i <= e_hour1; i++){ 
 				timetable[i-9][day1-2] += table1;
-				System.out.println("i:"+i);
+				//System.out.println("i:"+i);
 				}
 			
 			//twice a week
